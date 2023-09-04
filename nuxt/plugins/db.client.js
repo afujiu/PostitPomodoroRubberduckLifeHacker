@@ -3,6 +3,7 @@ class TaskClass {
     constructor() {
         this._taskList = {}
         this._isLoadFunc = () => { }
+        this._isCompShowFlg = true
     }
     /**
      * リスト更新フラグ
@@ -12,6 +13,15 @@ class TaskClass {
     }
     set isLoad(isLoad) {
         this._isLoadFunc(isLoad)
+    }
+    set isCompShowFlg(isCompShowFlg) {
+        this.isLoad = false
+        this._isCompShowFlg = isCompShowFlg
+        this.isLoad = true
+
+    }
+    get isCompShowFlg() {
+        return this._isCompShowFlg
     }
 
     /**
@@ -59,6 +69,10 @@ class TaskClass {
         let data = {}
         for (let key in this._taskList) {
             if (this._taskList[key].parentId == null) {
+                //終了フラグが立っていたら終了分は非表示
+                if (this._isCompShowFlg && (this._taskList[key].state == 3 || this._taskList[key].state == 4)) {
+                    continue
+                }
                 data[key] = key
             }
         }
@@ -73,6 +87,9 @@ class TaskClass {
         let data = {}
         for (let key in this._taskList) {
             if (this._taskList[key].parentId == parentId) {
+                if (this._isCompShowFlg && (this._taskList[key].state == 3 || this._taskList[key].state == 4)) {
+                    continue
+                }
                 data[key] = key
             }
         }
