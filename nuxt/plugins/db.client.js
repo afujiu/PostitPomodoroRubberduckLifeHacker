@@ -1,27 +1,28 @@
 import Vue from 'vue'
+/**
+ * タスククラス
+ */
 class TaskClass {
     constructor() {
-        this._taskList = {}
-        this._isLoadFunc = () => { }
-        this._isCompShowFlg = true
+        this._taskList = []
+        this.isLoading=()=>{}
+    }
+    initLoadFunction(func){
+        this.isLoading=func
     }
     /**
-     * リスト更新フラグ
+     * ステータス情報
      */
-    set isLoadFunc(isLoadFunction) {
-        this._isLoadFunc = isLoadFunction
-    }
-    set isLoad(isLoad) {
-        this._isLoadFunc(isLoad)
-    }
-    set isCompShowFlg(isCompShowFlg) {
-        this.isLoad = false
-        this._isCompShowFlg = isCompShowFlg
-        this.isLoad = true
-
-    }
-    get isCompShowFlg() {
-        return this._isCompShowFlg
+    get stateList(){
+        return {
+            "todo":{text:"未着",textColor:"secondary",color:"secondary--text"},
+            "plan":{text:"予定",textColor:"secondary",color:"secondary--text"},
+            "work":{text:"作業",textColor:"secondary",color:"secondary--text"},    
+            "wait":{text:"返信待ち",textColor:"secondary",color:"secondary--text"},
+            "stop":{text:"停止",textColor:"secondary",color:"secondary--text"},
+            "cancel":{text:"中止",textColor:"secondary",color:"secondary--text"},
+            "comp":{text:"完了",textColor:"secondary",color:"secondary--text"},
+        }
     }
 
     /**
@@ -42,86 +43,34 @@ class TaskClass {
     }
     set list(taskList) {
         this._taskList = taskList
+        this.isLoading()
     }
 
-    /**
-     * ステータス情報
-     */
-    getStateText(state) {
-        switch (state) {
-            case 0: return '未着'
-            case 1: return '作業'
-            case 2: return '停止'
-            case 3: return '中止'
-            case 4: return '完了'
-        }
-    }
-    getStateColor(state, appendText = "") {
-        switch (state) {
-            case 0: return 'secondary' + appendText
-            case 1: return 'green' + appendText
-            case 2: return 'secondary' + appendText
-            case 3: return 'red' + appendText
-            case 4: return 'primary' + appendText
-        }
-    }
-    getParentList() {
-        let data = {}
-        for (let key in this._taskList) {
-            if (this._taskList[key].parentId == null) {
-                //終了フラグが立っていたら終了分は非表示
-                if (this._isCompShowFlg && (this._taskList[key].state == 3 || this._taskList[key].state == 4)) {
-                    continue
-                }
-                data[key] = key
-            }
-        }
-        return data
-    }
-    /**
-     * 子コンポーネントを取得
-     * @param {*} parentId 
-     * @returns 
-     */
-    getChildrenList(parentId) {
-        let data = {}
-        for (let key in this._taskList) {
-            if (this._taskList[key].parentId == parentId) {
-                if (this._isCompShowFlg && (this._taskList[key].state == 3 || this._taskList[key].state == 4)) {
-                    continue
-                }
-                data[key] = key
-            }
-        }
-        return data
-    }
     /**
      * タスク追加
      * @param {*} title 
      * @param {*} parentId 
      */
-    add(parentId = null) {
-        this.isLoad = false
+    add(state="todo",parentId = null) {
         const uid = TaskClass.uid
         const startDateTime = new Date()
         let task = {
             id: uid,
             title: "",
-            state: 0,
+            state: state,
             startDateTime: startDateTime,
             endDateTime: "",
             planTime: "",
-            log: [],
             contents: [],
             parentId: parentId
         }
-        this._taskList[uid] = task
-        this.isLoad = true
+        let list=this.list
+        list.push(task)
+        this.list=list
     }
-
 }
+
 Vue.prototype.$db = {
     task: new TaskClass(),
-
 }
 
