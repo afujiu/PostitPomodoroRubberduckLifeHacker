@@ -10,7 +10,10 @@
                 </v-col>
             </v-row>
             <v-row class="pt-5 mt-5">
-                <v-col></v-col>
+                <v-col>
+                    {{ $db.task.list }}
+
+                </v-col>
             </v-row>
         </v-container>
 

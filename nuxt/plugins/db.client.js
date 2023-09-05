@@ -5,24 +5,29 @@ import Vue from 'vue'
 class TaskClass {
     constructor() {
         this._taskList = []
-        this.isLoading=()=>{}
+        let taskList = localStorage.getItem("taskList")
+        console.log(taskList)
+        if (taskList != null) {
+            this._taskList = JSON.parse(taskList)
+        }
+        this.isLoading = () => { }
     }
-    initLoadFunction(func){
-        this.isLoading=func
+    initLoadFunction(func) {
+        this.isLoading = func
     }
     /**
      * ステータス情報
      */
-    get stateList(){
+    get stateList() {
         return {
-            "todo":{text:"未着",textColor:"secondary",color:"secondary--text"},
-            "plan":{text:"予定",textColor:"secondary",color:"secondary--text"},
-            "loop":{text:"定例",textColor:"secondary",color:"secondary--text"},
-            "work":{text:"作業",textColor:"secondary",color:"secondary--text"},    
-            "wait":{text:"返信待ち",textColor:"secondary",color:"secondary--text"},
-            "stop":{text:"停止",textColor:"secondary",color:"secondary--text"},
-            "cancel":{text:"中止",textColor:"secondary",color:"secondary--text"},
-            "comp":{text:"完了",textColor:"secondary",color:"secondary--text"},
+            "todo": { text: "未着", color: "white", textColor: "black--text", next: ["work", "wait", "plan", "loop", "cancel"] },
+            "plan": { text: "予定", color: "deep-purple darken-1", textColor: "white--text", next: ["work", "stop", "cancel", "comp"] },
+            "loop": { text: "定例", color: "green lighten-5", textColor: "black--text", next: ["cancel", "comp"] },
+            "work": { text: "作業中", color: "green", textColor: "white--text", next: ["stop", "cancel", "comp"] },
+            "wait": { text: "返信待", color: "brown", textColor: "white--text", next: ["cancel", "comp"] },
+            "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "cancel", "comp"] },
+            "cancel": { text: "中止", color: "deep-orange lighten-5", textColor: "black--text", next: [] },
+            "comp": { text: "完了", color: "light-blue lighten-5", textColor: "black--text", next: [] },
         }
     }
 
@@ -46,6 +51,7 @@ class TaskClass {
         console.log("aaa")
         this._taskList = taskList
         this.isLoading()
+        localStorage.setItem("taskList", JSON.stringify(this._taskList))
     }
 
     /**
@@ -53,7 +59,7 @@ class TaskClass {
      * @param {*} title 
      * @param {*} parentId 
      */
-    add(state="todo",parentId = null) {
+    add(state = "todo", parentId = null) {
         const uid = TaskClass.uid
         const startDateTime = new Date()
         let task = {
@@ -66,9 +72,26 @@ class TaskClass {
             contents: [],
             parentId: parentId
         }
-        let list=this.list
+        let list = this.list
         list.push(task)
-        this.list=list
+        this.list = list
+    }
+    /**
+     * ステータス変更(作業中に変更した場合、ほかの作業中は停止)
+     * @param {*} uid 
+     * @param {*} state 
+     */
+    changeState(key, state) {
+        if (state == 'work') {
+            let task = this._taskList.find((v) => { v.state == 'work' })
+            for (let idx in this._taskList) {
+                if (this._taskList[idx].state == 'work') {
+                    this.list[idx].state = 'stop'
+                }
+            }
+        }
+        this.list[key].state = state
+        this.list = this.list
     }
 }
 
