@@ -17,6 +17,7 @@ class TaskClass {
         return {
             "todo":{text:"未着",textColor:"secondary",color:"secondary--text"},
             "plan":{text:"予定",textColor:"secondary",color:"secondary--text"},
+            "loop":{text:"定例",textColor:"secondary",color:"secondary--text"},
             "work":{text:"作業",textColor:"secondary",color:"secondary--text"},    
             "wait":{text:"返信待ち",textColor:"secondary",color:"secondary--text"},
             "stop":{text:"停止",textColor:"secondary",color:"secondary--text"},
@@ -42,6 +43,7 @@ class TaskClass {
         return this._taskList
     }
     set list(taskList) {
+        console.log("aaa")
         this._taskList = taskList
         this.isLoading()
     }

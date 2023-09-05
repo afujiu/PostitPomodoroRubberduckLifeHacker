@@ -1,29 +1,32 @@
 <template>
     <v-app>
       <v-main>
-        <v-card class="px-0" color="primary" elevation="0">
+        <v-app-bar class="px-0" elevation="0" fixed>
           <v-container>
             <v-row>
               <v-col cols="12" class="pa-0 ma-0">
                 <v-tabs
+                  small
                   v-model="tab"
                   color="primary"
-                  class="px-0 mx-0"
                   right
                 >
-                  <v-tab value="1">Task</v-tab>
-                  <v-tab value="2">Result</v-tab>
-                  <v-tab value="3">Graph</v-tab>
-                  <v-tab value="4">Graph</v-tab>
+                  <v-tab>Task</v-tab>
+                  <v-tab>Result</v-tab>
+                  <v-tab>Graph</v-tab>
+                  <v-tab>Setting</v-tab>
                 </v-tabs>
               </v-col>
             </v-row>
           </v-container>
-        </v-card>
+        </v-app-bar>
         <v-container>
           <v-row>
-              <v-col class="pa-0 ma-0">
-                <tabs-task></tabs-task>
+            <v-col cols="12"></v-col>
+              <v-col cols="12" class="pa-0 ma-0 my-5 py-5">
+                <tabs-task v-if="tab==0"></tabs-task>
+                <tabs-result v-if="tab==1"></tabs-result>
+                <tabs-graph v-if="tab==2"></tabs-graph>
               </v-col>
             </v-row>
         </v-container>
@@ -33,19 +36,13 @@
 <script>
 export default {
   data: () => ({
-    tab:"one"
+    tab:0
   }),
   created() {
   },
   mounted() {
-    this.$db.task.initLoadFunction(
-      ()=>{this.$forceUpdate()}
-    )
   },
   methods: {
-    async pushAddTask() {
-      this.$db.task.add();
-    },
   },
 };
 </script>
