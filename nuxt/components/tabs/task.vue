@@ -28,7 +28,7 @@
           v-for="(val, idx) in $db.task.list"
           :key="idx"
         >
-          {{ idx }}
+          <task-card :idx="idx"></task-card>
         </v-col>
       </v-row>
     </v-container>
