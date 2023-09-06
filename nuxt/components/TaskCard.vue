@@ -21,9 +21,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" class="ma-0 pa-0 px-2">
-                <span class="overline">
-                  <parts-date></parts-date>
-                </span>
+                <span class="overline"> </span>
               </v-col>
               <v-col v-if="isOpenOption" cols="12" class="ma-0 pa-0 px-2">
                 おぷしょん
