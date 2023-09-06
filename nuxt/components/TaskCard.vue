@@ -83,7 +83,6 @@ export default {
   async created() {},
   async mounted() {
     this.task = this.$db.task.list[this.idx];
-    console.log(this.task);
   },
   methods: {
     /**

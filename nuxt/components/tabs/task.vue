@@ -15,6 +15,19 @@
           >
             <v-icon>mdi-plus</v-icon>
           </v-btn>
+          <v-btn
+            class="primary"
+            dark
+            fab
+            small
+            right
+            fixed
+            icon
+            app
+            @click="pushReset()"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
         </v-col>
       </v-row>
       <v-row class="pt-5 mt-5">
@@ -46,6 +59,9 @@ export default {
   methods: {
     pushAddTask() {
       this.$db.task.add();
+    },
+    pushReset() {
+      this.$db.task.resetTask();
     },
   },
 };
