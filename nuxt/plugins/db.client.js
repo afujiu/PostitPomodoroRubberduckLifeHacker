@@ -53,6 +53,10 @@ class TaskClass {
         this.isLoading()
         localStorage.setItem("taskList", JSON.stringify(this._taskList))
     }
+    resetTask() {
+        localStorage.removeItem("taskList")
+        this._taskList = []
+    }
 
     /**
      * タスク追加
