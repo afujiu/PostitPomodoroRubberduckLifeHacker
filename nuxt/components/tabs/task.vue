@@ -17,7 +17,20 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-row class="pt-5 mt-5"> </v-row>
+      <v-row class="pt-5 mt-5">
+        <v-col
+          class="my-0 mt-4"
+          xm="12"
+          sm="6"
+          md="6"
+          lg="4"
+          cols="12"
+          v-for="(val, idx) in $db.task.list"
+          :key="idx"
+        >
+          {{ idx }}
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>
