@@ -18,51 +18,10 @@
                   hide-details
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" class="ma-0 pa-0 px-2">
-                <span class="overline">
-                  <parts-date></parts-date>
-                </span>
-              </v-col>
-              <v-col v-if="isOpenOption" cols="12" class="ma-0 pa-0 px-2">
-                おぷしょん
-              </v-col>
+              <v-col cols="12" class="ma-0 pa-0 px-2"> </v-col>
             </v-row>
           </v-col>
-          <v-col cols="2" class="px-0 py-0" align="right">
-            <v-speed-dial
-              v-model="stateDial"
-              direction="bottom"
-              style="width: 100%; height: 100%"
-              class="overline"
-            >
-              <template v-slot:activator>
-                <v-btn
-                  elevation="0"
-                  class="rounded-0 overline"
-                  :class="$db.task.stateList[task.state].textColor"
-                  :color="$db.task.stateList[task.state].color"
-                  style="width: 100%; height: 100%"
-                >
-                  {{ $db.task.stateList[task.state].text }}
-                </v-btn>
-              </template>
-              <span></span>
-              <span
-                v-for="(val, idx) in $db.task.stateList[task.state].next"
-                :key="idx"
-              >
-                <v-btn
-                  elevation="0"
-                  class="rounded-0 overline"
-                  :class="$db.task.stateList[val].textColor"
-                  :color="$db.task.stateList[val].color"
-                  @click="changeState(val)"
-                >
-                  {{ $db.task.stateList[val].text }}
-                </v-btn>
-              </span>
-            </v-speed-dial>
-          </v-col>
+          <v-col cols="2" class="px-0 py-0" align="right"> </v-col>
         </v-row>
       </v-container>
     </v-card>
