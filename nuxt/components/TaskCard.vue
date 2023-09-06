@@ -6,6 +6,20 @@
       class="pa-0 ma-0 rounded-0"
       :class="{ 'active-card': stateDial }"
     >
+      <v-container class="pt-0">
+        <v-row>
+          <v-col cols="10">
+            <v-text-field
+              v-model="task.title"
+              class="my-0 py-0"
+              dence
+              hide-details
+              :prepend-icon="isOpenOption ? 'mdi-menu-up' : 'mdi-menu-down'"
+              @click:prepend="isOpenOption = !isOpenOption"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-card>
   </div>
 </template>
