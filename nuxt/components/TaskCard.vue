@@ -37,18 +37,6 @@
               style="width: 100%; height: 100%"
               class="overline"
             >
-              <template v-slot:activator>
-                <v-btn
-                  elevation="0"
-                  class="rounded-0 overline"
-                  :class="$db.task.stateList[task.state].textColor"
-                  :color="$db.task.stateList[task.state].color"
-                  style="width: 100%; height: 100%"
-                >
-                  {{ $db.task.stateList[task.state].text }}
-                </v-btn>
-              </template>
-              <span></span>
             </v-speed-dial>
           </v-col>
         </v-row>
