@@ -30,15 +30,7 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="2" class="px-0 py-0" align="right">
-            <v-speed-dial
-              v-model="stateDial"
-              direction="bottom"
-              style="width: 100%; height: 100%"
-              class="overline"
-            >
-            </v-speed-dial>
-          </v-col>
+          <v-col cols="2" class="px-0 py-0" align="right"> </v-col>
         </v-row>
       </v-container>
     </v-card>
