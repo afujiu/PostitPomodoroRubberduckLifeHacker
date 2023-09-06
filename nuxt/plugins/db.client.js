@@ -5,8 +5,8 @@ import Vue from 'vue'
 class TaskClass {
     constructor() {
         this._taskList = []
+        localStorage.removeItem("taskList")
         let taskList = localStorage.getItem("taskList")
-        console.log(taskList)
         if (taskList != null) {
             this._taskList = JSON.parse(taskList)
         }
