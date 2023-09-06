@@ -43,11 +43,11 @@ export default {
     stateDial: false,
     isOpenOption: false,
   }),
-  async created() {
+  created() {},
+  mounted() {
     this.task = this.$db.task.list[this.idx];
-    console.log(this.task);
+    alert("ここまで");
   },
-  async mounted() {},
   methods: {
     /**
      * ステータス変更
