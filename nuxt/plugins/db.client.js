@@ -5,7 +5,6 @@ import Vue from 'vue'
 class TaskClass {
     constructor() {
         this._taskList = []
-        localStorage.removeItem("taskList")
         let taskList = localStorage.getItem("taskList")
         if (taskList != null) {
             this._taskList = JSON.parse(taskList)
@@ -48,7 +47,6 @@ class TaskClass {
         return this._taskList
     }
     set list(taskList) {
-        console.log("aaa")
         this._taskList = taskList
         this.isLoading()
         localStorage.setItem("taskList", JSON.stringify(this._taskList))
@@ -56,6 +54,7 @@ class TaskClass {
     resetTask() {
         localStorage.removeItem("taskList")
         this._taskList = []
+        this.isLoading()
     }
 
     /**
