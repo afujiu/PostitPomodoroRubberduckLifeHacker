@@ -40,7 +40,7 @@
           v-for="(val, idx) in $db.task.list"
           :key="idx"
         >
-          <task-card :idx="idx"></task-card>
+          <task-card :id="val.id"></task-card>
         </v-col>
       </v-row>
     </v-container>

@@ -51,6 +51,18 @@ class TaskClass {
         this.isLoading()
         localStorage.setItem("taskList", JSON.stringify(this._taskList))
     }
+    /**
+     * タスク取得
+     * @param {*} id 
+     * @returns 
+     */
+    getTask(id){
+        let task =this.list.find((v)=>v.id==id)
+        if(task==undefined){
+            return null
+        }
+        return task
+    }
     resetTask() {
         localStorage.removeItem("taskList")
         this._taskList = []
@@ -84,7 +96,7 @@ class TaskClass {
      * @param {*} uid 
      * @param {*} state 
      */
-    changeState(key, state) {
+    changeState(id, state) {
         if (state == 'work') {
             let task = this._taskList.find((v) => { v.state == 'work' })
             for (let idx in this._taskList) {
@@ -93,7 +105,8 @@ class TaskClass {
                 }
             }
         }
-        this.list[key].state = state
+        let task=this.getTask(id)
+        task.state = state
         this.list = this.list
     }
 }

@@ -48,8 +48,8 @@
 <script>
 export default {
   props: {
-    idx: {
-      type: Number,
+    id: {
+      type: String,
     },
   },
   data: () => ({
@@ -60,7 +60,7 @@ export default {
   async created() {
   },
   async mounted() {
-    this.task = this.$db.task.list[this.idx];
+    this.task = this.$db.task.getTask(this.id);
   },
   methods: {
     /**
@@ -68,7 +68,7 @@ export default {
      * @param {} state
      */
     changeState(state) {
-      this.$db.task.changeState(this.idx, state);
+      this.$db.task.changeState(this.id, state);
     },
   },
 };
