@@ -1,36 +1,35 @@
 <template>
   <div id="wrap">
-    <v-container>
+    <v-container class="px-2 mx-0">
       <v-row>
-        <v-col class="pa-0 ma-0 mb-2 pl-3">
+        <v-col cols="2" class="py-2 my-2" align="left">
           <v-btn
             class="primary"
             dark
             fab
             small
-            fixed
             icon
             app
             @click="pushAddTask()"
           >
             <v-icon>mdi-plus</v-icon>
           </v-btn>
+          </v-col>
+          <v-col cols="8" class="py-2 my-2" ></v-col>
+          <v-col cols="2" class="py-2 my-2"  align="right">
           <v-btn
-            class="primary"
-            dark
             fab
             small
             right
-            fixed
             icon
             app
             @click="pushReset()"
           >
-            <v-icon>mdi-close</v-icon>
+            <v-icon>mdi-dots-horizontal</v-icon>
           </v-btn>
         </v-col>
       </v-row>
-      <v-row class="pt-5 mt-5">
+      <v-row class="pt-0 mt-0">
         <v-col
           class="my-0 mt-4"
           xm="12"

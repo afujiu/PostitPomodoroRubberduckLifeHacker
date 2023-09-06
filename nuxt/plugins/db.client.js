@@ -19,14 +19,14 @@ class TaskClass {
      */
     get stateList() {
         return {
-            "todo": { text: "未着", color: "white", textColor: "black--text", next: ["work", "wait", "plan", "loop", "cancel"] },
-            "plan": { text: "予定", color: "deep-purple darken-1", textColor: "white--text", next: ["work", "stop", "cancel", "comp"] },
-            "loop": { text: "定例", color: "green lighten-5", textColor: "black--text", next: ["cancel", "comp"] },
-            "work": { text: "作業中", color: "green", textColor: "white--text", next: ["stop", "cancel", "comp"] },
-            "wait": { text: "返信待", color: "brown", textColor: "white--text", next: ["cancel", "comp"] },
+            "todo": { text: "未着", color: "red lighten-5", textColor: "black--text", next: ["work", "wait", "plan", "loop", "cancel"] },
+            "plan": { text: "予定", color: "amber lighten-2", textColor: "black--text", next: ["work", "stop", "cancel", "comp"] },
+            "loop": { text: "定例", color: "green lighten-4", textColor: "black--text", next: ["cancel", "comp"] },
+            "work": { text: "作業中", color: "red darken-2", textColor: "white--text", next: ["stop", "cancel", "comp"] },
+            "wait": { text: "返信待", color: "orange darken-3", textColor: "white--text", next: ["cancel", "comp"] },
             "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "cancel", "comp"] },
-            "cancel": { text: "中止", color: "deep-orange lighten-5", textColor: "black--text", next: [] },
-            "comp": { text: "完了", color: "light-blue lighten-5", textColor: "black--text", next: [] },
+            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: [] },
+            "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: [] },
         }
     }
 
