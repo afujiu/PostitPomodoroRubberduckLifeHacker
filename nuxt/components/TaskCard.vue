@@ -18,7 +18,11 @@
                   hide-details
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" class="ma-0 pa-0 px-2"> </v-col>
+              <v-col cols="12" class="ma-0 pa-0 px-2">
+                <span class="overline">
+                  <parts-date></parts-date>
+                </span>
+              </v-col>
             </v-row>
           </v-col>
           <v-col cols="2" class="px-0 py-0" align="right"> </v-col>
