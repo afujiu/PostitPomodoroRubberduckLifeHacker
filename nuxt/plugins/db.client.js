@@ -63,10 +63,28 @@ class TaskClass {
         }
         return task
     }
+    /**
+     * タスクリセット
+     */
     resetTask() {
         localStorage.removeItem("taskList")
         this._taskList = []
         this.isLoading()
+    }
+
+    /**
+     * 子タスクを取得
+     * @param {*} id 
+     * @returns 
+     */
+    getParentList(id){
+        console.log(id)
+        let list =this._taskList.filter((v)=>v.parentId == id)
+       
+        if(list==undefined){
+            return []
+        }
+        return list
     }
 
     /**

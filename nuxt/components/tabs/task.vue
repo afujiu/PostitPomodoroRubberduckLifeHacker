@@ -17,16 +17,23 @@
           </v-col>
           <v-col cols="8" class="py-2 my-2" ></v-col>
           <v-col cols="2" class="py-2 my-2"  align="right">
-          <v-btn
-            fab
-            small
-            right
-            icon
-            app
-            @click="pushReset()"
-          >
-            <v-icon>mdi-dots-horizontal</v-icon>
-          </v-btn>
+            <v-speed-dial v-model="isOption" direction="bottom">
+                    <template v-slot:activator>
+                      <v-btn
+                        fab
+                        small
+                        right
+                        icon
+                        app
+                      >
+                        <v-icon>mdi-dots-horizontal</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-btn @click="pushReset()"
+                    >
+                      全タスク削除
+                    </v-btn>
+            </v-speed-dial>
         </v-col>
       </v-row>
       <v-row class="pt-0 mt-0">
@@ -37,7 +44,7 @@
           md="6"
           lg="4"
           cols="12"
-          v-for="(val, idx) in $db.task.list"
+          v-for="(val, idx) in $db.task.getParentList(null)"
           :key="idx"
         >
           <task-card :id="val.id"></task-card>
@@ -48,7 +55,9 @@
 </template>
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    isOption:false
+  }),
   created() {},
   mounted() {
     this.$db.task.initLoadFunction(() => {
