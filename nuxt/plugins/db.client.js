@@ -19,14 +19,15 @@ class TaskClass {
      */
     get stateList() {
         return {
-            "todo": { text: "未着", color: "red lighten-5", textColor: "black--text", next: ["work", "wait", "plan", "loop", "cancel"] },
+            "todo": { text: "未着", color: "red lighten-5", textColor: "black--text", next: ["work", "wait", "plan", "loop", "cancel", "delete"] },
             "plan": { text: "予定", color: "amber lighten-2", textColor: "black--text", next: ["work", "stop", "cancel", "comp"] },
             "loop": { text: "定例", color: "green lighten-4", textColor: "black--text", next: ["cancel", "comp"] },
             "work": { text: "作業中", color: "red darken-2", textColor: "white--text", next: ["stop", "cancel", "comp"] },
-            "wait": { text: "返信待", color: "orange darken-3", textColor: "white--text", next: ["cancel", "comp"] },
-            "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "cancel", "comp"] },
+            "wait": { text: "返信待", color: "orange darken-3", textColor: "white--text", next: ["cancel", "comp", "delete"] },
+            "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
             "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: [] },
             "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: [] },
+            "delete": { text: "削除", color: "black", textColor: "white--text", next: [] },
         }
     }
 
@@ -56,9 +57,9 @@ class TaskClass {
      * @param {*} id 
      * @returns 
      */
-    getTask(id){
-        let task =this.list.find((v)=>v.id==id)
-        if(task==undefined){
+    getTask(id) {
+        let task = this.list.find((v) => v.id == id)
+        if (task == undefined) {
             return null
         }
         return task
@@ -71,17 +72,25 @@ class TaskClass {
         this._taskList = []
         this.isLoading()
     }
+    /**
+     * タスク削除
+     * @param {*} id 
+     * @returns 
+     */
+    delete(id) {
+        let idx = this.list.findIndex((v) => v.id == id)
+        this.list = this.list.splice(idx, 1)
+    }
 
     /**
      * 子タスクを取得
      * @param {*} id 
      * @returns 
      */
-    getParentList(id){
-        console.log(id)
-        let list =this._taskList.filter((v)=>v.parentId == id)
-       
-        if(list==undefined){
+    getParentList(id) {
+        let list = this._taskList.filter((v) => v.parentId == id)
+
+        if (list == undefined) {
             return []
         }
         return list
@@ -123,7 +132,7 @@ class TaskClass {
                 }
             }
         }
-        let task=this.getTask(id)
+        let task = this.getTask(id)
         task.state = state
         this.list = this.list
     }

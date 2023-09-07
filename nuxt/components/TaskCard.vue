@@ -19,8 +19,7 @@
                         ><v-icon small>mdi-plus</v-icon></v-btn
                       >
                     </template>
-                    <v-btn elevation="10" 
-                      @click="pushAddChild()"
+                    <v-btn elevation="10" @click="pushAddChild()"
                       ><v-icon>mdi-expand-all-outline</v-icon></v-btn
                     >
                     <v-btn elevation="10"
@@ -81,17 +80,19 @@
           </v-row>
         </v-container>
       </v-card>
-  
-    <div
-      class="my-3 py-2 pl-2 pr-1"
-      v-for="(val, idx) in $db.task.getParentList(id)" :key="idx">
+
+      <div
+        class="my-3 py-2 pl-2 pr-1"
+        v-for="(val, idx) in $db.task.getParentList(id)"
+        :key="idx"
+      >
         <task-card :id="val.id"></task-card>
-    </div>
+      </div>
     </span>
   </div>
 </template>
 <script>
-import TaskCard from '~/components/TaskCard'
+import TaskCard from "~/components/TaskCard";
 export default {
   props: {
     id: {
@@ -112,14 +113,19 @@ export default {
     /**
      * 子タスクを追加
      */
-    pushAddChild(){
-      this.$db.task.add("todo",this.id)
+    pushAddChild() {
+      this.$db.task.add("todo", this.id);
     },
     /**
      * ステータス変更
      * @param {} state
      */
     changeState(state) {
+      //削除の場合は
+      if (state == "delete") {
+        this.$db.task.delete(this.id);
+        return;
+      }
       this.$db.task.changeState(this.id, state);
     },
   },
