@@ -22,6 +22,9 @@ class TaskClass {
     initUploadFunction(func) {
         this.initUpload = func
     }
+    updateTask(){
+        this.list=this.list
+    }
     /**
      * ステータス情報
      */
@@ -149,6 +152,19 @@ class TaskClass {
         let list = this.list
         list.push(task)
         this.list = list
+    }
+    /**
+     * コンテンツを追加
+     * @param {} id 
+     */
+    addContents(id){
+        let idx=this.getTaskIdx(id)
+        let data=this.list[idx]
+        data.contents.push({
+        type:"link",
+        isEdit:true,
+        value:"",
+        title:""})
     }
     /**
      * ステータス変更(作業中に変更した場合、ほかの作業中は停止)
