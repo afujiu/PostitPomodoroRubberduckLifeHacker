@@ -51,7 +51,7 @@ export default {
       this.isForceOption = false;
       setInterval(() => {
         this.isForceOption = true;
-      }, 1);
+      }, 10);
     });
   },
   methods: {
