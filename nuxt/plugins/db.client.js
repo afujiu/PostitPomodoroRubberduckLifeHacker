@@ -101,11 +101,11 @@ class TaskClass {
             //最上位の場合、子タスクのparentIDをnullにする
             if (task.parentId == null) {
                 for (let i in childTask) {
-                    this.list(this.getTaskIdx(childTask[i].id)).parentId = null
+                    this.list[this.getTaskIdx(childTask[i].id)].parentId = null
                 }
             } else {
                 for (let i in childTask) {
-                    this.list(this.getTaskIdx(childTask[i].id)).parentId = task.parentId
+                    this.list[this.getTaskIdx(childTask[i].id)].parentId = task.parentId
                 }
             }
         }
