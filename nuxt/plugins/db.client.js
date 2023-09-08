@@ -79,9 +79,9 @@ class TaskClass {
      */
     delete(id) {
         console.log(id)
-        let idx = this.list.findIndex((v) => v.id == id)
+        let idx = this._taskList.findIndex((v) => v.id == id)
         console.log(idx)
-        this.list.splice(idx, 1)
+        this._taskList.splice(idx, 1)
         this.list = this.list
     }
 
