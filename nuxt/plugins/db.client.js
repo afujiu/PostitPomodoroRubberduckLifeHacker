@@ -78,9 +78,7 @@ class TaskClass {
      * @returns 
      */
     delete(id) {
-        console.log(id)
         let idx = this._taskList.findIndex((v) => v.id == id)
-        console.log(idx)
         this._taskList.splice(idx, 1)
         this.list = this.list
     }
