@@ -81,6 +81,7 @@ class TaskClass {
         let idx = this._taskList.findIndex((v) => v.id == id)
         this._taskList.splice(idx, 1)
         this.list = this.list
+        this.isLoading()
     }
 
     /**
