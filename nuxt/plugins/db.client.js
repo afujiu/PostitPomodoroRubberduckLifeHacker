@@ -72,6 +72,13 @@ class TaskClass {
         }
         return task
     }
+    getTaskIdx(id) {
+        let idx = this.list.findIndex((v) => v.id == id)
+        if (idx == undefined) {
+            return null
+        }
+        return idx
+    }
     /**
      * タスクリセット
      */
@@ -87,6 +94,21 @@ class TaskClass {
      */
     delete(id) {
         let idx = this._taskList.findIndex((v) => v.id == id)
+        let task = this._taskList.find((v) => v.id == id)
+        //削除タスクに子があったら、親を引き継がす
+        let childTask = this.getParentList(id)
+        if (childTask.length > 0) {
+            //最上位の場合、子タスクのparentIDをnullにする
+            if (task.parentId == null) {
+                for (let i in childTask) {
+                    this.list(this.getTaskIdx(childTask[i].id)).parentId = null
+                }
+            } else {
+                for (let i in childTask) {
+                    this.list(this.getTaskIdx(childTask[i].id)).parentId = task.parentId
+                }
+            }
+        }
         this._taskList.splice(idx, 1)
         this.list = this.list
         this.initUpload()
