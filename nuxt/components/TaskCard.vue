@@ -82,7 +82,7 @@
       </v-card>
 
       <div
-        class="my-3 py-2 pl-2 pr-1"
+        class="my-3 py-2 pl-3 pr-0"
         v-for="(val, idx) in $db.task.getParentList(id)"
         :key="idx"
       >
