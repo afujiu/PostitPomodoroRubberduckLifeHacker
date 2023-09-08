@@ -10,9 +10,17 @@ class TaskClass {
             this._taskList = JSON.parse(taskList)
         }
         this.isLoading = () => { }
+        this.initUpload = () => { }
     }
     initLoadFunction(func) {
         this.isLoading = func
+    }
+    /**
+     * 強制的に画面更新
+     * @param {} func 
+     */
+    initUploadFunction(func) {
+        this.initUpload = func
     }
     /**
      * ステータス情報
@@ -81,8 +89,7 @@ class TaskClass {
         let idx = this._taskList.findIndex((v) => v.id == id)
         this._taskList.splice(idx, 1)
         this.list = this.list
-        this.isLoading()
-        console.log(this.list)
+        this.this.initUpload()
     }
 
     /**
