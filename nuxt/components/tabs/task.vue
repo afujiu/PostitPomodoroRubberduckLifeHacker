@@ -40,7 +40,7 @@
 export default {
   data: () => ({
     isOption: false,
-    isForceOption: false,
+    isForceOption: true,
   }),
   created() {},
   mounted() {
