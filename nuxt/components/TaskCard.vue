@@ -40,32 +40,70 @@
                   </v-text-field>
                 </v-col>
                 <!--コンテンツ-->
-                <v-col v-for="(val,idx) in task.contents" cols="12" class="ma-0 pa-0 px-2">
+                <v-col
+                  v-for="(val, idx) in task.contents"
+                  cols="12"
+                  class="ma-0 pa-0 px-2"
+                >
                   <!--リンクコンテンツ-->
-                  <v-container vif="val.type=='link'" class="py-2 my-0">
+                  <v-container v-if="val.type == 'link'" class="py-2 my-0">
                     <v-row v-if="val.isEdit">
                       <v-col cols="1" class="pa-0 ma-0">
-                        <v-btn fab icon x-small @click="changeContents(val)"><v-icon>mdi-pen</v-icon></v-btn>
+                        <v-btn fab icon x-small @click="changeContents(val)"
+                          ><v-icon>mdi-pen</v-icon></v-btn
+                        >
                       </v-col>
-                      <v-col cols="5" class="pa-0 ma-0 pr-1"><v-text-field class="caption" v-model="val.value" dence hide-details label="URL"></v-text-field></v-col>
-                      <v-col cols="5" class="pa-0 ma-0"><v-text-field class="caption" v-model="val.title" dence hide-details label="表示"></v-text-field></v-col>
+                      <v-col cols="5" class="pa-0 ma-0 pr-1"
+                        ><v-text-field
+                          class="caption"
+                          v-model="val.value"
+                          dence
+                          hide-details
+                          label="URL"
+                        ></v-text-field
+                      ></v-col>
+                      <v-col cols="5" class="pa-0 ma-0"
+                        ><v-text-field
+                          class="caption"
+                          v-model="val.title"
+                          dence
+                          hide-details
+                          label="表示"
+                        ></v-text-field
+                      ></v-col>
                       <v-col cols="1" class="pa-0 ma-0">
-                        <v-btn fab icon x-small @click="deleteContents(idx)"><v-icon>mdi-close</v-icon></v-btn>
+                        <v-btn fab icon x-small @click="deleteContents(idx)"
+                          ><v-icon>mdi-close</v-icon></v-btn
+                        >
                       </v-col>
                     </v-row>
                     <v-row v-else>
                       <v-col cols="1" class="pa-0 ma-0">
-                        <v-btn fab icon x-small @click="val.isEdit=!val.isEdit"><v-icon>mdi-pen</v-icon></v-btn>
+                        <v-btn
+                          fab
+                          icon
+                          x-small
+                          @click="val.isEdit = !val.isEdit"
+                          ><v-icon>mdi-pen</v-icon></v-btn
+                        >
                       </v-col>
-                      <v-col cols="10" class="pa-0 ma-0 pl-5 caption"> <a target="_blank" :href="val.value">{{val.title}}</a></v-col>
+                      <v-col cols="10" class="pa-0 ma-0 pl-5 caption">
+                        <a target="_blank" :href="val.value">{{
+                          val.title
+                        }}</a></v-col
+                      >
                       <v-col cols="1" class="pa-0 ma-0">
-                        <v-btn fab icon x-small @click="deleteContents(idx)"><v-icon>mdi-close</v-icon></v-btn>
+                        <v-btn fab icon x-small @click="deleteContents(idx)"
+                          ><v-icon>mdi-close</v-icon></v-btn
+                        >
                       </v-col>
                     </v-row>
                   </v-container>
                 </v-col>
-                <v-col cols="12" class="ma-0 pa-0">
-                    <v-btn icon x-small @click="pushAddLink()"><v-icon>mdi-playlist-plus</v-icon></v-btn>
+                <v-col cols="12" class="ma-0 pa-0 pl-2">
+                  <v-btn icon x-small @click="pushAddLink()"
+                    ><v-icon>mdi-playlist-plus</v-icon></v-btn
+                  >
                 </v-col>
               </v-row>
             </v-col>
@@ -146,16 +184,16 @@ export default {
     /**
      * コンテンツにリンクを追加
      */
-    pushAddLink(){
-      this.$db.task.addContents(this.id)
+    pushAddLink() {
+      this.$db.task.addContents(this.id);
     },
-    changeContents(val){
-      val.isEdit=!val.isEdit
-      this.$db.task.updateTask()
+    changeContents(val) {
+      val.isEdit = !val.isEdit;
+      this.$db.task.updateTask();
     },
-    deleteContents(idx){
-      this.task.contents.splice(idx,1)
-      this.$db.task.updateTask()
+    deleteContents(idx) {
+      this.task.contents.splice(idx, 1);
+      this.$db.task.updateTask();
     },
     /**
      * ステータス変更
