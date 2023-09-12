@@ -100,7 +100,7 @@
                     </v-row>
                   </v-container>
                 </v-col>
-                <v-col cols="12" class="ma-0 pa-0 pl-2">
+                <v-col cols="12" class="ma-0 pa-0 pl-4">
                   <v-btn icon x-small @click="pushAddLink()"
                     ><v-icon>mdi-playlist-plus</v-icon></v-btn
                   >
