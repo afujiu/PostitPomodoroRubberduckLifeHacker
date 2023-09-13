@@ -60,6 +60,11 @@
                           dence
                           hide-details
                           label="URL"
+                          @change="
+                            if (val.value != '' && val.title != '') {
+                              changeContents(val);
+                            }
+                          "
                         ></v-text-field
                       ></v-col>
                       <v-col cols="5" class="pa-0 ma-0"
@@ -69,21 +74,22 @@
                           dence
                           hide-details
                           label="表示"
+                          @change="
+                            if (val.value != '' && val.title != '') {
+                              changeContents(val);
+                            }
+                          "
                         ></v-text-field
                       ></v-col>
                       <v-col cols="1" class="pa-0 ma-0">
-                        <v-btn fab icon x-small @click="deleteContents(idx)"
+                        <v-btn icon x-small @click="deleteContents(idx)"
                           ><v-icon>mdi-close</v-icon></v-btn
                         >
                       </v-col>
                     </v-row>
                     <v-row v-else>
                       <v-col cols="1" class="pa-0 ma-0">
-                        <v-btn
-                          fab
-                          icon
-                          x-small
-                          @click="val.isEdit = !val.isEdit"
+                        <v-btn icon x-small @click="val.isEdit = !val.isEdit"
                           ><v-icon>mdi-pen</v-icon></v-btn
                         >
                       </v-col>
