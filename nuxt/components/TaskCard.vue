@@ -49,7 +49,7 @@
                   <v-container v-if="val.type == 'link'" class="py-2 my-0">
                     <v-row v-if="val.isEdit">
                       <v-col cols="1" class="pa-0 ma-0">
-                        <v-btn fab icon x-small @click="changeContents(val)"
+                        <v-btn icon x-small @click="changeContents(val, true)"
                           ><v-icon>mdi-pen</v-icon></v-btn
                         >
                       </v-col>
@@ -57,11 +57,8 @@
                         <input
                           type="text"
                           :value="val.value"
-                          @change="
-                            if (val.value != '' && val.title != '') {
-                              changeContents(val);
-                            }
-                          "
+                          style="width: 100%; border: solid 0.5px"
+                          @change="changeContents(val)"
                         />
                         <!-- <v-text-field
                           class="caption"
@@ -81,11 +78,8 @@
                         <input
                           type="text"
                           :value="val.title"
-                          @change="
-                            if (val.value != '' && val.title != '') {
-                              changeContents(val);
-                            }
-                          "
+                          style="width: 100%; border: solid 0.5px"
+                          @change="changeContents(val)"
                         />
 
                         <!-- <v-text-field
@@ -214,10 +208,18 @@ export default {
     pushAddLink() {
       this.$db.task.addContents(this.id);
     },
-    changeContents(val) {
-      val.isEdit = !val.isEdit;
-      this.$db.task.updateTask();
+    changeContents(val, isForce = false) {
+      if (isForce) {
+        val.isEdit = !val.isEdit;
+        this.$db.task.updateTask();
+      } else {
+        if (val.value != "" && val.title != "") {
+          val.isEdit = !val.isEdit;
+          this.$db.task.updateTask();
+        }
+      }
     },
+
     deleteContents(idx) {
       this.task.contents.splice(idx, 1);
       this.$db.task.updateTask();
