@@ -34,8 +34,8 @@
                 <v-col cols="11" class="px-1 pt-0 pb-0">
 
                   <v-text-field
-                    prepend-inner-icon="mdi-check-circle-outline"
-                    @click:prepend-inner="isTitleEdit=!isTitleEdit"
+                    append-inner-icon="mdi-check-circle-outline"
+                    @click:append-inner="isTitleEdit=!isTitleEdit"
                     v-if="isTitleEdit"
                     v-model="task.title"
                     class="my-0 py-0"

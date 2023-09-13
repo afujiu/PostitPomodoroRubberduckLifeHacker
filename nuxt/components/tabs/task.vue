@@ -69,6 +69,7 @@
               <v-col cols="12">
                 <v-select
                   label="Select"
+                  v-model="stateFilter"
                   :items="[
                     'California',
                     'Colorado',
@@ -80,7 +81,7 @@
                   multiple
                 ></v-select>
               </v-col>
-              <v-col cols="12">c</v-col>
+              <v-col cols="12">{{ stateFilter }}</v-col>
               <v-col cols="12">d</v-col>
             </v-row>
           </v-container>
@@ -95,6 +96,7 @@ export default {
     isOption: false,
     isForceOption: true,
     isFilterCard: false,
+    stateFilter: [],
   }),
   created() {},
   mounted() {
