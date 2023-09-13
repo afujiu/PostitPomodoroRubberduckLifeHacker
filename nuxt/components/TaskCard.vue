@@ -53,8 +53,17 @@
                           ><v-icon>mdi-pen</v-icon></v-btn
                         >
                       </v-col>
-                      <v-col cols="5" class="pa-0 ma-0 pr-1"
-                        ><v-text-field
+                      <v-col cols="5" class="pa-0 ma-0 pr-1">
+                        <input
+                          type="text"
+                          :value="val.value"
+                          @change="
+                            if (val.value != '' && val.title != '') {
+                              changeContents(val);
+                            }
+                          "
+                        />
+                        <!-- <v-text-field
                           class="caption"
                           v-model="val.value"
                           dence
@@ -66,9 +75,20 @@
                             }
                           "
                         ></v-text-field
-                      ></v-col>
-                      <v-col cols="5" class="pa-0 ma-0"
-                        ><v-text-field
+                      > -->
+                      </v-col>
+                      <v-col cols="5" class="pa-0 ma-0">
+                        <input
+                          type="text"
+                          :value="val.title"
+                          @change="
+                            if (val.value != '' && val.title != '') {
+                              changeContents(val);
+                            }
+                          "
+                        />
+
+                        <!-- <v-text-field
                           class="caption"
                           v-model="val.title"
                           dence
@@ -80,7 +100,8 @@
                             }
                           "
                         ></v-text-field
-                      ></v-col>
+                      > -->
+                      </v-col>
                       <v-col cols="1" class="pa-0 ma-0">
                         <v-btn icon x-small @click="deleteContents(idx)"
                           ><v-icon>mdi-close</v-icon></v-btn
