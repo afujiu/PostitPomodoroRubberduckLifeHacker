@@ -56,7 +56,7 @@
                       <v-col cols="5" class="pa-0 ma-0 pr-1">
                         <input
                           type="text"
-                          :value="val.value"
+                          v-model="val.value"
                           style="width: 100%; border: solid 0.5px"
                           @change="changeContents(val)"
                         />
@@ -77,7 +77,7 @@
                       <v-col cols="5" class="pa-0 ma-0">
                         <input
                           type="text"
-                          :value="val.title"
+                          v-model="val.title"
                           style="width: 100%; border: solid 0.5px"
                           @change="changeContents(val)"
                         />
