@@ -16,7 +16,7 @@
               <v-btn class="grey darken-1" dark fab small right icon ><v-icon>mdi-dots-horizontal</v-icon></v-btn>
             </template>
             <!--フィルター-->
-            <v-btn fab x-small right @click="pushReset()"> 
+            <v-btn fab x-small right @click="isFilterCard=true">
               <v-icon>mdi-filter-outline</v-icon>
             </v-btn>
             <!--全削除-->
@@ -40,6 +40,18 @@
           <task-card :id="val.id" elevation=12></task-card>
         </v-col>
       </v-row>
+      <v-row>
+      <v-card v-if="isFilterCard" class="filter-card">
+        <v-container>
+          <v-row>
+            <v-col cols="12">a</v-col>
+            <v-col cols="12">b</v-col>
+            <v-col cols="12">c</v-col>
+            <v-col cols="12">d</v-col>
+          </v-row>
+        </v-container>
+      </v-card>
+    </v-row>
     </v-container>
   </div>
 </template>
@@ -48,6 +60,7 @@ export default {
   data: () => ({
     isOption: false,
     isForceOption: true,
+    isFilterCard:false,
   }),
   created() {},
   mounted() {
@@ -71,4 +84,12 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.filter-card{
+  position:fixed;
+  margin:1em;
+  width:95%;
+  bottom:0;
+  z-index:999;
+}
+</style>
