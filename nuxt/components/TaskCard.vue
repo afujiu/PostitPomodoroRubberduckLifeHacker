@@ -3,9 +3,9 @@
     <span>
       <v-card
         variant="outlined"
-        elevation="2"
+        :elevation="elevation"
         class="pa-0 ma-0 rounded-0"
-        :class="{ 'active-card': isStateDial || isAddTaskDial }"
+        :class="{ 'active-top': isStateDial || isAddTaskDial }"
         v-if="task != null"
       >
         <v-container class="pt-0">
@@ -16,85 +16,73 @@
                   <!--　タスク追加ボタン-->
                   <v-speed-dial v-model="isAddTaskDial" direction="bottom">
                     <template v-slot:activator>
-                      <v-btn fab x-small icon
-                        ><v-icon small>mdi-plus</v-icon></v-btn
+                      <v-btn x-small icon
+                        ><v-icon  dark color="blue darken-1">mdi-plus-circle</v-icon></v-btn
                       >
                     </template>
-                    <v-btn elevation="10" @click="pushAddChild()"
+                    <!--子タスク作成-->
+                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()"
                       ><v-icon>mdi-expand-all-outline</v-icon></v-btn
                     >
-                    <v-btn elevation="10"
+                    <!--コピー作成-->
+                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10"
                       ><v-icon>mdi-content-copy</v-icon></v-btn
                     >
                   </v-speed-dial>
                 </v-col>
                 <!--タスク名-->
                 <v-col cols="11" class="px-1 pt-0 pb-0">
+
                   <v-text-field
+                    prepend-inner-icon="mdi-check-circle-outline"
+                    @click:prepend-inner="isTitleEdit=!isTitleEdit"
+                    v-if="isTitleEdit"
                     v-model="task.title"
                     class="my-0 py-0"
                     dence
                     hide-details
-                    @change="$db.task.list = $db.task.list"
+                    @change="()=>{$db.task.list = $db.task.list;isTitleEdit=!isTitleEdit}"
                   >
                   </v-text-field>
+                  <div v-else
+                    class="pl-1 pt-2"
+                    style="cursor:pointer; width:100%;min-height:32px;"
+                    @click="isTitleEdit=!isTitleEdit"
+                  >{{task.title}}</div>
                 </v-col>
                 <!--コンテンツ-->
-                <v-col
-                  v-for="(val, idx) in task.contents"
-                  cols="12"
-                  class="ma-0 pa-0 px-2"
-                >
-                  <!--リンクコンテンツ-->
-                  <v-container v-if="val.type == 'link'" class="py-2 my-0">
+                <v-col cols="12" class="ma-0 pa-0 pl-0">
+                  <v-btn icon x-small @click="pushAddLink()"
+                    ><v-icon>mdi-playlist-plus</v-icon></v-btn
+                  >
+                </v-col>
+                <v-col cols="12" v-for="(val, idx) in task.contents" :key="idx" class="ma-0 pa-0 px-0">
+                  <!--リンクコンテンツ------------------------------------------->
+                  <!------------------------------------------------------------>
+                  <v-container v-if="val.type == 'link'" class="py-2 my-0 mb-3">
                     <v-row v-if="val.isEdit">
                       <v-col cols="1" class="pa-0 ma-0">
                         <v-btn icon x-small @click="changeContents(val, true)"
-                          ><v-icon>mdi-pen</v-icon></v-btn
+                          ><v-icon>mdi-check-circle-outline</v-icon></v-btn
                         >
                       </v-col>
                       <v-col cols="5" class="pa-0 ma-0 pr-1">
                         <input
                           type="text"
                           v-model="val.value"
-                          style="width: 100%; border: solid 0.5px"
+                          placeholder="リンク"
+                          style="width: 100%; border:solid 0.5px;height:100%;"
                           @change="changeContents(val)"
                         />
-                        <!-- <v-text-field
-                          class="caption"
-                          v-model="val.value"
-                          dence
-                          hide-details
-                          label="URL"
-                          @change="
-                            if (val.value != '' && val.title != '') {
-                              changeContents(val);
-                            }
-                          "
-                        ></v-text-field
-                      > -->
                       </v-col>
                       <v-col cols="5" class="pa-0 ma-0">
                         <input
                           type="text"
                           v-model="val.title"
-                          style="width: 100%; border: solid 0.5px"
+                          placeholder="タイトル"
+                          style="width: 100%; border: solid 0.5px;height:100%;"
                           @change="changeContents(val)"
                         />
-
-                        <!-- <v-text-field
-                          class="caption"
-                          v-model="val.title"
-                          dence
-                          hide-details
-                          label="表示"
-                          @change="
-                            if (val.value != '' && val.title != '') {
-                              changeContents(val);
-                            }
-                          "
-                        ></v-text-field
-                      > -->
                       </v-col>
                       <v-col cols="1" class="pa-0 ma-0">
                         <v-btn icon x-small @click="deleteContents(idx)"
@@ -108,23 +96,19 @@
                           ><v-icon>mdi-pen</v-icon></v-btn
                         >
                       </v-col>
-                      <v-col cols="10" class="pa-0 ma-0 pl-5 caption">
-                        <a target="_blank" :href="val.value">{{
-                          val.title
-                        }}</a></v-col
-                      >
+                      <v-col cols="10" class="pa-0 ma-0 pr-1">
+                        <a target="_blank" :href="val.value">{{val.title}}</a>
+                      </v-col>
                       <v-col cols="1" class="pa-0 ma-0">
-                        <v-btn fab icon x-small @click="deleteContents(idx)"
+                        <v-btn icon x-small @click="deleteContents(idx)"
                           ><v-icon>mdi-close</v-icon></v-btn
                         >
                       </v-col>
                     </v-row>
                   </v-container>
-                </v-col>
-                <v-col cols="12" class="ma-0 pa-0 pl-4">
-                  <v-btn icon x-small @click="pushAddLink()"
-                    ><v-icon>mdi-playlist-plus</v-icon></v-btn
-                  >
+                  <!------------------------------------------------------------>
+
+
                 </v-col>
               </v-row>
             </v-col>
@@ -172,7 +156,9 @@
         v-for="(val, idx) in $db.task.getParentList(id)"
         :key="idx"
       >
-        <task-card :id="val.id"></task-card>
+        <task-card :id="val.id"
+          :elevation=Math.round(elevation/2)
+        ></task-card>
       </div>
     </span>
   </div>
@@ -184,9 +170,12 @@ export default {
     id: {
       type: String,
     },
+    elevation:{
+    }
   },
   data: () => ({
     task: null,
+    isTitleEdit:false,
     isStateDial: false,
     isAddTaskDial: false,
     isOpenOption: false,

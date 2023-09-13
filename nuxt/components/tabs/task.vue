@@ -1,21 +1,28 @@
 <template>
   <div id="wrap">
     <v-container class="px-2 mx-0">
-      <v-row>
-        <v-col cols="2" class="py-2 my-2" align="left">
-          <v-btn class="primary" dark fab small icon app @click="pushAddTask()">
+      <v-row >
+        <v-col cols="2" class="pb-5 mb-5" align="left">
+          <v-btn class="primary" dark fab small icon app fixed @click="pushAddTask()">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="8" class="py-2 my-2"></v-col>
-        <v-col cols="2" class="py-2 my-2" align="right">
-          <v-speed-dial v-model="isOption" direction="bottom">
+        <v-col cols="8" class="pb-5 mb-5">
+        </v-col>
+        <!-- 右オプション-->
+        <v-col cols="2" class="pb-5 mb-5" :class="{ 'active-top': isOption }">
+          <v-speed-dial v-model="isOption" fixed direction="bottom" style="right:20px;">
             <template v-slot:activator>
-              <v-btn fab small right icon app>
-                <v-icon>mdi-dots-horizontal</v-icon>
-              </v-btn>
+              <v-btn class="grey darken-1" dark fab small right icon ><v-icon>mdi-dots-horizontal</v-icon></v-btn>
             </template>
-            <v-btn @click="pushReset()"> 全タスク削除 </v-btn>
+            <!--フィルター-->
+            <v-btn fab x-small right @click="pushReset()"> 
+              <v-icon>mdi-filter-outline</v-icon>
+            </v-btn>
+            <!--全削除-->
+            <v-btn fab x-small right class="white--text black" @click="pushReset()"> 
+              <v-icon>mdi-trash-can</v-icon>
+            </v-btn>
           </v-speed-dial>
         </v-col>
       </v-row>
@@ -30,7 +37,7 @@
           v-for="(val, idx) in $db.task.getParentList(null)"
           :key="idx"
         >
-          <task-card :id="val.id"></task-card>
+          <task-card :id="val.id" elevation=12></task-card>
         </v-col>
       </v-row>
     </v-container>
