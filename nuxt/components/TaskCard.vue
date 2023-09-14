@@ -32,10 +32,9 @@
                 </v-col>
                 <!--タスク名-->
                 <v-col cols="11" class="px-1 pt-0 pb-0">
-
                   <v-text-field
-                    append-inner-icon="mdi-check-circle-outline"
-                    @click:append-inner="isTitleEdit=!isTitleEdit"
+                    append-icon="mdi-check-circle-outline"
+                    @click:append="isTitleEdit=!isTitleEdit"
                     v-if="isTitleEdit"
                     v-model="task.title"
                     class="my-0 py-0"

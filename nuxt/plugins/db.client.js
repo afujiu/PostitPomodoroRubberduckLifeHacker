@@ -9,12 +9,18 @@ class TaskClass {
         if (taskList != null) {
             this._taskList = JSON.parse(taskList)
         }
+        let filter = localStorage.getItem("filter")
+        console.log(filter)
+        if (filter != null) {
+            this._filter = JSON.parse(filter)
+        }else{
+            this._filter = {
+                state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "cancel", "comp"],
+                date: "",
+            }
+        }
         this.isLoading = () => { }
         this.initUpload = () => { }
-        this._filter = {
-            state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "cancel", "comp"],
-            date: "",
-        }
     }
     initLoadFunction(func) {
         this.isLoading = func
@@ -75,22 +81,17 @@ class TaskClass {
     }
     set filter(filter) {
         this._filter = filter
-        this.initUploadFunction()
     }
-    get stateFilter() {
-        return this.filter.state
+    changeFilter(){
+        localStorage.setItem("filter", JSON.stringify(this._filter))
     }
-    set stateFilter(state) {
-        this.filter.state = state
-    }
-
-
     /**
      * タスク取得
      * @param {*} id 
      * @returns 
      */
     getTask(id) {
+        console.log(id)
         let task = this.list.find((v) => v.id == id)
         if (task == undefined) {
             return null
@@ -158,7 +159,7 @@ class TaskClass {
             if (v.parentId != parentId) {
                 return false
             }
-            if (this.stateFilter.indexOf(v.state) == -1) {
+            if (!this.filter.state.includes(v.state)) {
                 return false
             }
             return true

@@ -16,9 +16,9 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="8" class="pb-5 mb-5"> </v-col>
+        <v-col cols="8" class="pb-5 mt-2 mb-5"> </v-col>
         <!-- 右オプション-->
-        <v-col cols="2" class="pb-5 mb-5" :class="{ 'active-top': isOption }">
+        <v-col cols="2" class="pb-5 mt-2 mb-5" :class="{ 'active-top': isOption }">
           <v-speed-dial
             v-model="isOption"
             fixed
@@ -62,17 +62,19 @@
         </v-col>
       </v-row>
       <v-row>
+      </v-row>
+    </v-container>
         <!-- フィルターカード-->
-        <v-card v-if="isFilterCard" class="filter-card">
+        <v-card v-if="isFilterCard" class="filter-card px-0">
           <v-container>
             <v-row>
-              <v-col cols="11"> </v-col>
-              <v-col cols="1">
-                <v-btn align="right" icon x-small @click="isFilterCard = false"
+              <v-col cols="11" class="my-1 px-3 py-0 pt-2"></v-col>
+              <v-col cols="1" class="my-1 pr-4 py-0 pt-2 align-right">
+                <v-btn class="" icon small @click="()=>{$db.task.changeFilter();isFilterCard = false}"
                   ><v-icon>mdi-close</v-icon></v-btn
                 >
               </v-col>
-              <v-col cols="12">
+              <v-col cols="12" class="py-0">
                 <div
                   v-for="(val, idx) in $db.task.stateList"
                   :key="idx"
@@ -80,19 +82,19 @@
                 >
                   <v-checkbox
                     v-if="idx != 'delete'"
-                    v-model="$db.task.stateFilter"
+                    v-model="stateFilter"
                     :label="val.text"
                     :value="idx"
+                    dence
+                    hide-details
                   ></v-checkbox>
                 </div>
               </v-col>
-              <v-col cols="12">{{ $db.task.stateFilter }}</v-col>
-              <v-col cols="12">d</v-col>
+              <v-col>
+              </v-col>
             </v-row>
           </v-container>
         </v-card>
-      </v-row>
-    </v-container>
   </div>
 </template>
 <script>
@@ -112,8 +114,15 @@ export default {
       this.isForceOption = false;
       setInterval(() => {
         this.isForceOption = true;
-      }, 10);
+      }, 1);
     });
+    this.stateFilter=this.$db.task.filter.state
+  },
+  watch: {
+    stateFilter (state) {
+      this.$db.task.filter.state=state
+      this.$db.task.initUpload()
+   }
   },
   methods: {
     pushAddTask() {
@@ -128,9 +137,11 @@ export default {
 <style scoped>
 .filter-card {
   position: fixed;
-  margin-left: 0 auto;
-  margin-right: 0 auto;
+  overflow:auto;
+  right:1em;
   bottom: 0;
+  height:200px;
   z-index: 999;
 }
 </style>
+
