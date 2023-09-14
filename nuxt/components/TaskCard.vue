@@ -51,9 +51,19 @@
                 </v-col>
                 <!--コンテンツ-->
                 <v-col cols="12" class="ma-0 pa-0 pl-0">
-                  <v-btn icon x-small @click="pushAddLink()"
-                    ><v-icon>mdi-playlist-plus</v-icon></v-btn
+                  <v-speed-dial
+                    v-model="isContentsDial"
+                    class="overline"
                   >
+                  <template v-slot:activator>
+                    <v-btn icon x-small @click="isContentsDial=!isContentsDial"
+                    ><v-icon>mdi-playlist-plus</v-icon></v-btn>
+                  </template>
+                  <span>
+                    <v-btn icon x-small @click="pushAddLink()"
+                    ><v-icon>mdi-link</v-icon></v-btn>
+                  </span>
+              </v-speed-dial>
                 </v-col>
                 <v-col cols="12" v-for="(val, idx) in task.contents" :key="idx" class="ma-0 pa-0 px-0">
                   <!--リンクコンテンツ------------------------------------------->
@@ -107,6 +117,63 @@
                   </v-container>
                   <!------------------------------------------------------------>
 
+                  <!--予定日コンテンツ------------------------------------------->
+                  <!------------------------------------------------------------>
+                  <v-container v-if="val.type == 'date'" class="py-2 my-0 mb-3">
+                    <v-row v-if="val.isEdit">
+                      <v-col cols="1" class="pa-0 ma-0">
+                        <v-btn icon x-small @click="changeContents(val, true)"
+                          ><v-icon>mdi-check-circle-outline</v-icon></v-btn
+                        >
+                      </v-col>
+                      <v-col cols="5" class="pa-0 ma-0 pr-1">
+                        <input
+                          type="text"
+                          v-model="val.value"
+                          placeholder="リンク"
+                          style="width: 100%; border:solid 0.5px;height:100%;"
+                          @change="changeContents(val)"
+                        />
+                      </v-col>
+                      <v-col cols="10" class="pa-0 ma-0">
+                        <input
+                          type="text"
+                          v-model="val.date"
+                          placeholder="日付"
+                          style="border: solid 0.5px;height:100%;"
+                          @change="changeContents(val)"
+                        />
+                        <input
+                          type="text"
+                          v-model="val.time"
+                          placeholder="時間"
+                          style="border: solid 0.5px;height:100%;"
+                          @change="changeContents(val)"
+                        />
+                      </v-col>
+                      <v-col cols="1" class="pa-0 ma-0">
+                        <v-btn icon x-small @click="deleteContents(idx)"
+                          ><v-icon>mdi-close</v-icon></v-btn
+                        >
+                      </v-col>
+                    </v-row>
+                    <v-row v-else>
+                      <v-col cols="1" class="pa-0 ma-0">
+                        <v-btn icon x-small @click="val.isEdit = !val.isEdit"
+                          ><v-icon>mdi-pen</v-icon></v-btn
+                        >
+                      </v-col>
+                      <v-col cols="10" class="pa-0 ma-0 pr-1">
+                        <a target="_blank" :href="val.value">{{val.title}}</a>
+                      </v-col>
+                      <v-col cols="1" class="pa-0 ma-0">
+                        <v-btn icon x-small @click="deleteContents(idx)"
+                          ><v-icon>mdi-close</v-icon></v-btn
+                        >
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <!------------------------------------------------------------>
 
                 </v-col>
               </v-row>
@@ -178,6 +245,7 @@ export default {
     isStateDial: false,
     isAddTaskDial: false,
     isOpenOption: false,
+    isContentsDial:false,
   }),
   async created() {},
   async mounted() {
