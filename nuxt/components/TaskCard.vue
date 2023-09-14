@@ -153,7 +153,7 @@
 
       <div
         class="my-3 py-2 pl-3 pr-0"
-        v-for="(val, idx) in $db.task.getParentList(id)"
+        v-for="(val, idx) in $db.task.getFilterList(id)"
         :key="idx"
       >
         <task-card :id="val.id"

@@ -55,7 +55,7 @@
           md="6"
           lg="4"
           cols="12"
-          v-for="(val, idx) in $db.task.getParentList(null)"
+          v-for="(val, idx) in $db.task.getFilterList(null)"
           :key="idx"
         >
           <task-card :id="val.id" elevation="12"></task-card>
@@ -72,7 +72,7 @@
                   style="float: left"
                 >
                   <v-checkbox
-                    v-model="stateFilter"
+                    v-model="$db.task.stateFilter"
                     :label="val.text"
                     :value="idx"
                   ></v-checkbox>
