@@ -53,15 +53,21 @@
                 <v-col cols="12" class="ma-0 pa-0 pl-0">
                   <v-speed-dial
                     v-model="isContentsDial"
+                    direction="right"
                     class="overline"
                   >
                   <template v-slot:activator>
-                    <v-btn icon x-small @click="isContentsDial=!isContentsDial"
-                    ><v-icon>mdi-playlist-plus</v-icon></v-btn>
+                    <v-btn
+                      icon
+                      x-small
+                      @click="isContentsDial=false">
+                      <v-icon>mdi-playlist-plus</v-icon>
+                    </v-btn>
                   </template>
                   <span>
-                    <v-btn icon x-small @click="pushAddLink()"
-                    ><v-icon>mdi-link</v-icon></v-btn>
+                    <v-btn icon x-small @click="pushAddLink()">
+                      <v-icon>mdi-link</v-icon>
+                  </v-btn>
                   </span>
               </v-speed-dial>
                 </v-col>
