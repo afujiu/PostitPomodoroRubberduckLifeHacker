@@ -80,7 +80,7 @@ class TaskClass {
     set filter(filter) {
         this._filter = filter
         localStorage.setItem("filter", JSON.stringify(this._filter))
-        this.isLoading()
+        this.initUploadFunction()
     }
     get stateFilter() {
         return this.filter.state
