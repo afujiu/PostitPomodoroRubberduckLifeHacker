@@ -85,7 +85,7 @@
                   ></v-checkbox>
                 </div>
               </v-col>
-              <v-col cols="12">{{ stateFilter }}</v-col>
+              <v-col cols="12">{{ $db.task.stateFilter }}</v-col>
               <v-col cols="12">d</v-col>
             </v-row>
           </v-container>
