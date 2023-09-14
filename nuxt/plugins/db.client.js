@@ -159,13 +159,13 @@ class TaskClass {
     }
     getFilterList(parentId = null) {
         let list = this._taskList.filter((v) => {
-            let result = true
             if (v.parentId != parentId) {
                 return false
             }
             if (this.stateFilter.indexOf(v.state) == -1) {
                 return false
             }
+            return true
         })
         if (list == undefined) {
             return []
