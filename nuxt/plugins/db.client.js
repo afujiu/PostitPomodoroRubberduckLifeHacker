@@ -71,15 +71,10 @@ class TaskClass {
      * フィルター
      */
     get filter() {
-        let filter = localStorage.getItem("filter")
-        if (filter != null) {
-            this._filter = JSON.parse(filter)
-        }
         return this._filter
     }
     set filter(filter) {
         this._filter = filter
-        localStorage.setItem("filter", JSON.stringify(this._filter))
         this.initUploadFunction()
     }
     get stateFilter() {
