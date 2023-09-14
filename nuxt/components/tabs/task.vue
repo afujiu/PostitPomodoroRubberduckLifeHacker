@@ -62,9 +62,16 @@
         </v-col>
       </v-row>
       <v-row>
+        <!-- フィルターカード-->
         <v-card v-if="isFilterCard" class="filter-card">
           <v-container>
             <v-row>
+              <v-col cols="11"> </v-col>
+              <v-col cols="1">
+                <v-btn align="right" icon x-small @click="isFilterCard = false"
+                  ><v-icon>mdi-close</v-icon></v-btn
+                >
+              </v-col>
               <v-col cols="12">
                 <div
                   v-for="(val, idx) in $db.task.stateList"
