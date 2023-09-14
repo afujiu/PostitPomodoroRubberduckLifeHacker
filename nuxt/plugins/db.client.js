@@ -162,6 +162,7 @@ class TaskClass {
             if (v.parentId != parentId) {
                 return false
             }
+            console.log(this.stateFilter)
             if (this.stateFilter.indexOf(v.state) == -1) {
                 return false
             }
