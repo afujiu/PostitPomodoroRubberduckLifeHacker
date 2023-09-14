@@ -122,7 +122,6 @@ export default {
   position: fixed;
   margin-left: 0 auto;
   margin-right: 0 auto;
-  min-width: 95%;
   bottom: 0;
   z-index: 999;
 }
