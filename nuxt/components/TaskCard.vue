@@ -59,8 +59,7 @@
                   <template v-slot:activator>
                     <v-btn
                       icon
-                      x-small
-                      @click="isContentsDial=false">
+                      x-small>
                       <v-icon>mdi-playlist-plus</v-icon>
                     </v-btn>
                   </template>
