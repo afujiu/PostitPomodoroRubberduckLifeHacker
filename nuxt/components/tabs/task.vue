@@ -79,6 +79,7 @@
                   style="float: left"
                 >
                   <v-checkbox
+                    v-if="idx != 'delete'"
                     v-model="$db.task.stateFilter"
                     :label="val.text"
                     :value="idx"

@@ -12,7 +12,7 @@ class TaskClass {
         this.isLoading = () => { }
         this.initUpload = () => { }
         this._filter = {
-            state: [],
+            state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "cancel", "comp"],
             date: "",
         }
     }
@@ -80,6 +80,7 @@ class TaskClass {
     set filter(filter) {
         this._filter = filter
         localStorage.setItem("filter", JSON.stringify(this._filter))
+        this.isLoading()
     }
     get stateFilter() {
         return this.filter.state
@@ -162,7 +163,6 @@ class TaskClass {
             if (v.parentId != parentId) {
                 return false
             }
-            console.log(this.stateFilter)
             if (this.stateFilter.indexOf(v.state) == -1) {
                 return false
             }
