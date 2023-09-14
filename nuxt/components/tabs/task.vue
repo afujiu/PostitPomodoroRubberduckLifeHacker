@@ -65,15 +65,18 @@
         <v-card v-if="isFilterCard" class="filter-card">
           <v-container>
             <v-row>
-              <v-col cols="12"> </v-col>
               <v-col cols="12">
-                <span v-for="(val, idx) in $db.task.stateList" :key="idx">
+                <div
+                  v-for="(val, idx) in $db.task.stateList"
+                  :key="idx"
+                  style="float: left"
+                >
                   <v-checkbox
                     v-model="stateFilter"
                     :label="val.text"
                     :value="idx"
                   ></v-checkbox>
-                </span>
+                </div>
               </v-col>
               <v-col cols="12">{{ stateFilter }}</v-col>
               <v-col cols="12">d</v-col>
