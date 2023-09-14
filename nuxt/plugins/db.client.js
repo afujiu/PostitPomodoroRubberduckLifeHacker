@@ -11,6 +11,10 @@ class TaskClass {
         }
         this.isLoading = () => { }
         this.initUpload = () => { }
+        this._filter = {
+            state: [],
+            date: "",
+        }
     }
     initLoadFunction(func) {
         this.isLoading = func
@@ -41,13 +45,6 @@ class TaskClass {
             "delete": { text: "削除", color: "black", textColor: "white--text", next: [] },
         }
     }
-    get stateNameArray() {
-        let stateNameArray = []
-        for (let key in this.stateList) {
-            stateNameArray.push(stateName)
-        }
-        return stateNameArray
-    }
 
     /**
      * ユニークID取得
@@ -70,6 +67,28 @@ class TaskClass {
         this.isLoading()
         localStorage.setItem("taskList", JSON.stringify(this._taskList))
     }
+    /**
+     * フィルター
+     */
+    get filter() {
+        let filter = localStorage.getItem("filter")
+        if (filter != null) {
+            this._filter = JSON.parse(filter)
+        }
+        return this._filter
+    }
+    set filter(filter) {
+        this._filter = filter
+        localStorage.setItem("filter", JSON.stringify(this._filter))
+    }
+    get stateFilter() {
+        return this.filter.state
+    }
+    set stateFilter(state) {
+        this.filter.state = state
+    }
+
+
     /**
      * タスク取得
      * @param {*} id 
@@ -130,8 +149,24 @@ class TaskClass {
      * @returns 
      */
     getParentList(id) {
-        let list = this._taskList.filter((v) => v.parentId == id)
-
+        let list = this._taskList.filter((v) => {
+            v.parentId == id
+        })
+        if (list == undefined) {
+            return []
+        }
+        return list
+    }
+    getFilterList(parentId = null) {
+        let list = this._taskList.filter((v) => {
+            let result = true
+            if (v.parentId != parentId) {
+                return false
+            }
+            if (this.stateFilter.indexOf(v.state) == -1) {
+                return false
+            }
+        })
         if (list == undefined) {
             return []
         }
