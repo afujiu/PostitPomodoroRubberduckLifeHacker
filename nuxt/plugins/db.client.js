@@ -22,8 +22,8 @@ class TaskClass {
     initUploadFunction(func) {
         this.initUpload = func
     }
-    updateTask(){
-        this.list=this.list
+    updateTask() {
+        this.list = this.list
     }
     /**
      * ステータス情報
@@ -40,6 +40,13 @@ class TaskClass {
             "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: [] },
             "delete": { text: "削除", color: "black", textColor: "white--text", next: [] },
         }
+    }
+    get stateNameArray() {
+        let stateNameArray = []
+        for (let key in this.stateList) {
+            stateNameArray.push(stateName)
+        }
+        return stateNameArray
     }
 
     /**
@@ -157,14 +164,15 @@ class TaskClass {
      * コンテンツを追加
      * @param {} id 
      */
-    addContents(id){
-        let idx=this.getTaskIdx(id)
-        let data=this.list[idx]
+    addContents(id) {
+        let idx = this.getTaskIdx(id)
+        let data = this.list[idx]
         data.contents.push({
-        type:"link",
-        isEdit:true,
-        value:"",
-        title:""})
+            type: "link",
+            isEdit: true,
+            value: "",
+            title: ""
+        })
     }
     /**
      * ステータス変更(作業中に変更した場合、ほかの作業中は停止)

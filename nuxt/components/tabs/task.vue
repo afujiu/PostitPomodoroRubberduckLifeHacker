@@ -67,19 +67,13 @@
             <v-row>
               <v-col cols="12"> </v-col>
               <v-col cols="12">
-                <v-select
-                  label="Select"
-                  v-model="stateFilter"
-                  :items="[
-                    'California',
-                    'Colorado',
-                    'Florida',
-                    'Georgia',
-                    'Texas',
-                    'Wyoming',
-                  ]"
-                  multiple
-                ></v-select>
+                <span v-for="(val, idx) in $db.task.stateList" :key="idx">
+                  <v-checkbox
+                    v-model="stateFilter"
+                    :label="val.text"
+                    :value="idx"
+                  ></v-checkbox>
+                </span>
               </v-col>
               <v-col cols="12">{{ stateFilter }}</v-col>
               <v-col cols="12">d</v-col>
@@ -123,8 +117,9 @@ export default {
 <style scoped>
 .filter-card {
   position: fixed;
-  margin: 1em;
-  width: 95%;
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+  min-width: 95%;
   bottom: 0;
   z-index: 999;
 }
