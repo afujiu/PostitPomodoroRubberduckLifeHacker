@@ -64,9 +64,9 @@
                     </v-btn>
                   </template>
                   <span>
-                    <v-btn icon x-small @click="pushAddLink()">
-                      <v-icon>mdi-link</v-icon>
-                  </v-btn>
+                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()"
+                      ><v-icon>mdi-expand-all-outline</v-icon></v-btn
+                    >
                   </span>
               </v-speed-dial>
                 </v-col>
