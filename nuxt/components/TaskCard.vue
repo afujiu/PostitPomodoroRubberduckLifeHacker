@@ -51,7 +51,9 @@
                 </v-col>
                 <!--コンテンツ-->
                 <v-col cols="12" class="ma-0 pa-0 pl-0">
-                  <v-speed-dial v-model="isContentsDial" direction="right">
+                  <v-speed-dial v-model="isContentsDial" direction="right" 
+                  :class="{ 'active-top': isContentsDial || isContentsDial }"
+                  >
                     <template v-slot:activator>
                       <v-btn icon x-small>
                         <v-icon>mdi-playlist-plus</v-icon>
