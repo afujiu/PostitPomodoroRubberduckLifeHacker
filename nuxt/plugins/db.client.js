@@ -208,9 +208,9 @@ class TaskClass {
                     title: ""
                 })
                 break
-            case "date":
+            case "datetime":
                 data.contents.push({
-                    type: "date",
+                    type: "datetime",
                     isEdit: true,
                     date: "",
                     time: ""
