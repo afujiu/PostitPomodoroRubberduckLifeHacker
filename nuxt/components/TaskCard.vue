@@ -12,26 +12,8 @@
           <v-row>
             <v-col cols="10">
               <v-row>
-                <v-col cols="1" class="pl-0 pr-2 pt-0 pb-0">
-                  <!--　タスク追加ボタン-->
-                  <v-speed-dial v-model="isAddTaskDial" direction="bottom">
-                    <template v-slot:activator>
-                      <v-btn x-small icon
-                        ><v-icon  dark color="blue darken-1">mdi-plus-circle</v-icon></v-btn
-                      >
-                    </template>
-                    <!--子タスク作成-->
-                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()"
-                      ><v-icon>mdi-expand-all-outline</v-icon></v-btn
-                    >
-                    <!--コピー作成-->
-                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10"
-                      ><v-icon>mdi-content-copy</v-icon></v-btn
-                    >
-                  </v-speed-dial>
-                </v-col>
                 <!--タスク名-->
-                <v-col cols="11" class="px-1 pt-0 pb-0">
+                <v-col cols="12" class="px-1 pt-0 pb-0">
                   <v-text-field
                     append-icon="mdi-check-circle-outline"
                     @click:append="isTitleEdit=!isTitleEdit"
@@ -49,8 +31,25 @@
                     @click="isTitleEdit=!isTitleEdit"
                   >{{task.title}}</div>
                 </v-col>
-                <!--コンテンツ-->
+                
                 <v-col cols="1" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
+                  <!--　タスク追加ボタン-->
+                  <v-speed-dial v-model="isAddTaskDial" direction="bottom">
+                    <template v-slot:activator>
+                      <v-btn x-small icon
+                        ><v-icon  dark color="blue darken-1">mdi-plus-circle</v-icon></v-btn
+                      >
+                    </template>
+                    <!--子タスク作成-->
+                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()"
+                      ><v-icon>mdi-expand-all-outline</v-icon></v-btn
+                    >
+                    <!--コピー作成-->
+                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10"
+                      ><v-icon>mdi-content-copy</v-icon></v-btn
+                    >
+                  </v-speed-dial>
+                  <!--コンテンツ-->
                   <v-speed-dial v-model="isContentsDial" direction="right">
                     <template v-slot:activator>
                       <v-btn icon x-small>
