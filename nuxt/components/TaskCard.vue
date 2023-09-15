@@ -57,11 +57,16 @@
                         <v-icon>mdi-playlist-plus</v-icon>
                       </v-btn>
                     </template>
-                      <v-btn class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()">
-                        <v-icon>mdi-expand-all-outline</v-icon>
-                      </v-btn>
+                    <!--リンクコンテンツ-->
+                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10"
+                      ><v-icon>mdi-link</v-icon></v-btn
+                    >
+                    <!--日付コンテンツ-->
+                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10"
+                      ><v-icon>mdi-clipboard-text-clock</v-icon></v-btn
+                    >
+
                   </v-speed-dial>
-                  {{ isContentsDial }}
                 </v-col>
                 <v-col cols="12" v-for="(val, idx) in task.contents" :key="idx" class="ma-0 pa-0 px-0">
                   <!--リンクコンテンツ------------------------------------------->
