@@ -165,14 +165,14 @@
                           readonly
                           v-model="val.date"
                           placeholder="日付"
-                          style="border: solid 0.5px;height:100%;"
+                          style="border: none 0.5px;height:100%;"
                         />
                         <input
                           type="time"
                           readonly
                           v-model="val.time"
                           placeholder="時間"
-                          style="border: solid 0.5px;height:100%;"
+                          style="border: none 0.5px;height:100%;"
                         />
                       </v-col>
                       <v-col cols="1" class="pa-0 ma-0">
