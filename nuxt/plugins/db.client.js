@@ -13,7 +13,7 @@ class TaskClass {
         console.log(filter)
         if (filter != null) {
             this._filter = JSON.parse(filter)
-        }else{
+        } else {
             this._filter = {
                 state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "cancel", "comp"],
                 date: "",
@@ -82,7 +82,7 @@ class TaskClass {
     set filter(filter) {
         this._filter = filter
     }
-    changeFilter(){
+    changeFilter() {
         localStorage.setItem("filter", JSON.stringify(this._filter))
     }
     /**
@@ -196,15 +196,27 @@ class TaskClass {
      * コンテンツを追加
      * @param {} id 
      */
-    addContents(id) {
+    addContents(id, type) {
         let idx = this.getTaskIdx(id)
         let data = this.list[idx]
-        data.contents.push({
-            type: "link",
-            isEdit: true,
-            value: "",
-            title: ""
-        })
+        switch (type) {
+            case "link":
+                data.contents.push({
+                    type: "link",
+                    isEdit: true,
+                    value: "",
+                    title: ""
+                })
+                break
+            case "date":
+                data.contents.push({
+                    type: "date",
+                    isEdit: true,
+                    date: "",
+                    time: ""
+                })
+                break
+        }
     }
     /**
      * ステータス変更(作業中に変更した場合、ほかの作業中は停止)

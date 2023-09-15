@@ -59,10 +59,12 @@
                     </template>
                     <!--リンクコンテンツ-->
                     <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10"
+                      @click="pushAddLink('link')"
                       ><v-icon>mdi-link</v-icon></v-btn
                     >
                     <!--日付コンテンツ-->
                     <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10"
+                      @click="pushAddLink('date')"
                       ><v-icon>mdi-clipboard-text-clock</v-icon></v-btn
                     >
 
@@ -264,11 +266,16 @@ export default {
       this.$db.task.add("todo", this.id);
     },
     /**
-     * コンテンツにリンクを追加
+     * コンテンツ追加
      */
-    pushAddLink() {
-      this.$db.task.addContents(this.id);
+    pushAddLink(type) {
+      this.$db.task.addContents(this.id,type);
     },
+    /**コンテンツ内容を変更
+     * 
+     * @param {*} val 
+     * @param {*} isForce 
+     */
     changeContents(val, isForce = false) {
       if (isForce) {
         val.isEdit = !val.isEdit;
@@ -280,7 +287,10 @@ export default {
         }
       }
     },
-
+    /**
+     * コンテンツ削除
+     * @param {} idx 
+     */
     deleteContents(idx) {
       this.task.contents.splice(idx, 1);
       this.$db.task.updateTask();
