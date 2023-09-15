@@ -139,14 +139,12 @@
                           v-model="val.date"
                           placeholder="日付"
                           style="border: solid 0.5px;height:100%;"
-                          @change="changeContents(val)"
                         />
                         <input
                           type="time"
                           v-model="val.time"
                           placeholder="時間"
                           style="border: solid 0.5px;height:100%;"
-                          @change="changeContents(val)"
                         />
                       </v-col>
                       <v-col cols="1" class="pa-0 ma-0">
@@ -161,8 +159,21 @@
                           ><v-icon>mdi-pen</v-icon></v-btn
                         >
                       </v-col>
-                      <v-col cols="10" class="pa-0 ma-0 pr-1">
-                        <a target="_blank" :href="val.value">{{val.title}}</a>
+                      <v-col cols="10" class="pa-0 ma-0">
+                        <input
+                          type="date"
+                          readonly
+                          v-model="val.date"
+                          placeholder="日付"
+                          style="border: solid 0.5px;height:100%;"
+                        />
+                        <input
+                          type="time"
+                          readonly
+                          v-model="val.time"
+                          placeholder="時間"
+                          style="border: solid 0.5px;height:100%;"
+                        />
                       </v-col>
                       <v-col cols="1" class="pa-0 ma-0">
                         <v-btn icon x-small @click="deleteContents(idx)"
