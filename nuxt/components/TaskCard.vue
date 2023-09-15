@@ -51,22 +51,15 @@
                 </v-col>
                 <!--コンテンツ-->
                 <v-col cols="12" class="ma-0 pa-0 pl-0">
-                  <v-speed-dial
-                    v-model="isContentsDial"
-                    direction="right"
-                    class="overline"
-                  >
+                  <v-speed-dial v-model="isContentsDial" direction="right">
                   <template v-slot:activator>
-                    <v-btn
-                      icon
-                      x-small>
+                    <v-btn icon x-small>
                       <v-icon>mdi-playlist-plus</v-icon>
                     </v-btn>
                   </template>
                   <span>
                     <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()"
-                      ><v-icon>mdi-expand-all-outline</v-icon></v-btn
-                    >
+                      ><v-icon>mdi-expand-all-outline</v-icon></v-btn>
                   </span>
               </v-speed-dial>
                 </v-col>
