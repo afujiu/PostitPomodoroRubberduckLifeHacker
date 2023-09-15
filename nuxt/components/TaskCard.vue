@@ -50,10 +50,8 @@
                   >{{task.title}}</div>
                 </v-col>
                 <!--コンテンツ-->
-                <v-col cols="12" class="ma-0 pa-0 pl-0">
-                  <v-speed-dial v-model="isContentsDial" direction="right" 
-                  :class="{ 'active-top': isContentsDial || isContentsDial }"
-                  >
+                <v-col cols="12" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
+                  <v-speed-dial v-model="isContentsDial" direction="bottom">
                     <template v-slot:activator>
                       <v-btn icon x-small>
                         <v-icon>mdi-playlist-plus</v-icon>
