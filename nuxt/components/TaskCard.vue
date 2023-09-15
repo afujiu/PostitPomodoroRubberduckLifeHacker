@@ -50,7 +50,7 @@
                   >{{task.title}}</div>
                 </v-col>
                 <!--コンテンツ-->
-                <v-col cols="12" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
+                <v-col cols="1" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
                   <v-speed-dial v-model="isContentsDial" direction="bottom">
                     <template v-slot:activator>
                       <v-btn icon x-small>
@@ -67,6 +67,8 @@
                     >
 
                   </v-speed-dial>
+                </v-col>
+                <v-col cols="11" class="ma-0 pa-0 pl-0">
                 </v-col>
                 <v-col cols="12" v-for="(val, idx) in task.contents" :key="idx" class="ma-0 pa-0 px-0">
                   <!--リンクコンテンツ------------------------------------------->
