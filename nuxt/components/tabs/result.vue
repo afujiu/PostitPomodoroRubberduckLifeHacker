@@ -11,7 +11,7 @@
             </v-row>
             <v-row class="pt-5 mt-5">
                 <v-col>
-                    {{ $db.task.list }}
+                    {{ $plg.task.list }}
 
                 </v-col>
             </v-row>
@@ -26,7 +26,7 @@
     created() {
     },
     mounted() {
-        this.$db.task.initLoadFunction(
+        this.$plg.task.initLoadFunction(
             ()=>{this.$forceUpdate()}
         )
     },

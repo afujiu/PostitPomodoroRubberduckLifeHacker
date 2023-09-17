@@ -18,7 +18,7 @@
       <v-container>
         <v-row>
           <v-col cols="12"></v-col>
-          <v-col cols="12" class="pa-0 ma-0 my-5 py-5">
+          <v-col cols="12" class="pa-0 ma-0 my-5 py-5" v-if="isLoading">
             <tabs-task v-if="tab == 0"></tabs-task>
             <tabs-result v-if="tab == 1"></tabs-result>
             <tabs-graph v-if="tab == 2"></tabs-graph>
@@ -32,8 +32,13 @@
 export default {
   data: () => ({
     tab: 0,
+    isLoading:false
   }),
-  created() {},
+  created() {
+    setTimeout(() => {
+      this.isLoading=true
+    }, 100);
+  },
   mounted() {},
   methods: {},
 };

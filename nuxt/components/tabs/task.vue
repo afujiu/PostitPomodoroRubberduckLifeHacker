@@ -55,7 +55,7 @@
           md="6"
           lg="4"
           cols="12"
-          v-for="(val, idx) in $db.task.getFilterList(null)"
+          v-for="(val, idx) in $plg.task.getFilterList(null)"
           :key="idx"
         >
           <task-card :id="val.id" elevation="12"></task-card>
@@ -70,13 +70,13 @@
             <v-row>
               <v-col cols="11" class="my-1 px-3 py-0 pt-2"></v-col>
               <v-col cols="1" class="my-1 pr-4 py-0 pt-2 align-right">
-                <v-btn class="" icon small @click="()=>{$db.task.changeFilter();isFilterCard = false}"
+                <v-btn class="" icon small @click="()=>{$plg.task.changeFilter();isFilterCard = false}"
                   ><v-icon>mdi-close</v-icon></v-btn
                 >
               </v-col>
               <v-col cols="12" class="py-0">
                 <div
-                  v-for="(val, idx) in $db.task.stateList"
+                  v-for="(val, idx) in $plg.task.stateList"
                   :key="idx"
                   style="float: left"
                 >
@@ -107,29 +107,29 @@ export default {
   }),
   created() {},
   mounted() {
-    this.$db.task.initLoadFunction(() => {
+    this.$plg.task.initLoadFunction(() => {
       this.$forceUpdate();
     });
-    this.$db.task.initUploadFunction(() => {
+    this.$plg.task.initUploadFunction(() => {
       this.isForceOption = false;
       setInterval(() => {
         this.isForceOption = true;
       }, 1);
     });
-    this.stateFilter=this.$db.task.filter.state
+    this.stateFilter=this.$plg.task.filter.state
   },
   watch: {
     stateFilter (state) {
-      this.$db.task.filter.state=state
-      this.$db.task.initUpload()
+      this.$plg.task.filter.state=state
+      this.$plg.task.initUpload()
    }
   },
   methods: {
     pushAddTask() {
-      this.$db.task.add();
+      this.$plg.task.add();
     },
     pushReset() {
-      this.$db.task.resetTask();
+      this.$plg.task.resetTask();
     },
   },
 };

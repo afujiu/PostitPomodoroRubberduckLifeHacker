@@ -29,7 +29,7 @@
     created() {
     },
     mounted() {
-        this.$db.task.initLoadFunction(
+        this.$plg.task.initLoadFunction(
             ()=>{this.$forceUpdate()}
         )
     },

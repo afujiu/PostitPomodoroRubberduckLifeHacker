@@ -1,27 +1,38 @@
 import Vue from 'vue'
+import { DexieClass } from "./DexieClass.js";
+import { UtilClass } from "./UtilClass.js";
+import { LoggingClass } from "./LoggingClass.js";
+
 /**
  * タスククラス
  */
-class TaskClass {
+export class TaskClass {
     constructor() {
+        this.logging = new LoggingClass()
+        this.dexieTaskList = new DexieClass('dexieTask', 'json')
+        this.dexieFilter = new DexieClass('dexieFilter', 'json')
+
         this._taskList = []
-        let taskList = localStorage.getItem("taskList")
-        if (taskList != null) {
-            this._taskList = JSON.parse(taskList)
-        }
-        let filter = localStorage.getItem("filter")
-        console.log(filter)
-        if (filter != null) {
-            this._filter = JSON.parse(filter)
-        } else {
-            this._filter = {
-                state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "cancel", "comp"],
-                date: "",
-            }
+        this._filter = {
+            state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "cancel", "comp"],
+            date: "",
         }
         this.isLoading = () => { }
         this.initUpload = () => { }
+        const asyncInit = async () => {
+
+            let taskList = await this.dexieTaskList.getJson()
+            if (taskList != null) {
+                this._taskList = taskList
+            }
+            let dexieFilter = await this.dexieFilter.getJson()
+            if (dexieFilter != null) {
+                this.filter = dexieFilter
+            }
+        }
+        asyncInit()
     }
+
     initLoadFunction(func) {
         this.isLoading = func
     }
@@ -71,7 +82,7 @@ class TaskClass {
     set list(taskList) {
         this._taskList = taskList
         this.isLoading()
-        localStorage.setItem("taskList", JSON.stringify(this._taskList))
+        this.dexieTaskList.putJson(this._taskList)
     }
     /**
      * フィルター
@@ -83,7 +94,7 @@ class TaskClass {
         this._filter = filter
     }
     changeFilter() {
-        localStorage.setItem("filter", JSON.stringify(this._filter))
+        this.dexieFilter.putJson(this._filter)
     }
     /**
      * タスク取得
@@ -91,7 +102,6 @@ class TaskClass {
      * @returns 
      */
     getTask(id) {
-        console.log(id)
         let task = this.list.find((v) => v.id == id)
         if (task == undefined) {
             return null
@@ -109,7 +119,7 @@ class TaskClass {
      * タスクリセット
      */
     resetTask() {
-        localStorage.removeItem("taskList")
+        this.dexieTaskList.clearJson()
         this._taskList = []
         this.isLoading()
     }
@@ -177,7 +187,7 @@ class TaskClass {
      */
     add(state = "todo", parentId = null) {
         const uid = TaskClass.uid
-        const startDateTime = new Date()
+        const startDateTime = UtilClass.nowTime()
         let task = {
             id: uid,
             title: "",
@@ -234,11 +244,9 @@ class TaskClass {
         }
         let task = this.getTask(id)
         task.state = state
+        this.logging.addLog(id, state)
         this.list = this.list
+        this.initUpload()
     }
-}
-
-Vue.prototype.$db = {
-    task: new TaskClass(),
 }
 

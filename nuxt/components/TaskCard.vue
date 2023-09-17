@@ -22,7 +22,7 @@
                     class="my-0 py-0"
                     dence
                     hide-details
-                    @change="()=>{$db.task.list = $db.task.list;isTitleEdit=!isTitleEdit}"
+                    @change="()=>{$plg.task.list = $plg.task.list;isTitleEdit=!isTitleEdit}"
                   >
                   </v-text-field>
                   <div v-else
@@ -199,26 +199,26 @@
                   <v-btn
                     elevation="0"
                     class="rounded-0 overline"
-                    :class="$db.task.stateList[task.state].textColor"
-                    :color="$db.task.stateList[task.state].color"
+                    :class="$plg.task.stateList[task.state].textColor"
+                    :color="$plg.task.stateList[task.state].color"
                     style="width: 100%; height: 100%"
                   >
-                    {{ $db.task.stateList[task.state].text }}
+                    {{ $plg.task.stateList[task.state].text }}
                   </v-btn>
                 </template>
                 <span></span>
                 <span
-                  v-for="(val, idx) in $db.task.stateList[task.state].next"
+                  v-for="(val, idx) in $plg.task.stateList[task.state].next"
                   :key="idx"
                 >
                   <v-btn
                     elevation="10"
                     class="rounded-0 overline"
-                    :class="$db.task.stateList[val].textColor"
-                    :color="$db.task.stateList[val].color"
+                    :class="$plg.task.stateList[val].textColor"
+                    :color="$plg.task.stateList[val].color"
                     @click="changeState(val)"
                   >
-                    {{ $db.task.stateList[val].text }}
+                    {{ $plg.task.stateList[val].text }}
                   </v-btn>
                 </span>
               </v-speed-dial>
@@ -229,7 +229,7 @@
 
       <div
         class="my-3 py-2 pl-3 pr-0"
-        v-for="(val, idx) in $db.task.getFilterList(id)"
+        v-for="(val, idx) in $plg.task.getFilterList(id)"
         :key="idx"
       >
         <task-card :id="val.id"
@@ -259,20 +259,20 @@ export default {
   }),
   async created() {},
   async mounted() {
-    this.task = this.$db.task.getTask(this.id);
+    this.task = this.$plg.task.getTask(this.id);
   },
   methods: {
     /**
      * 子タスクを追加
      */
     pushAddChild() {
-      this.$db.task.add("todo", this.id);
+      this.$plg.task.add("todo", this.id);
     },
     /**
      * コンテンツ追加
      */
     pushAddLink(type) {
-      this.$db.task.addContents(this.id,type);
+      this.$plg.task.addContents(this.id,type);
     },
     /**コンテンツ内容を変更
      * 
@@ -282,11 +282,11 @@ export default {
     changeContents(val, isForce = false) {
       if (isForce) {
         val.isEdit = !val.isEdit;
-        this.$db.task.updateTask();
+        this.$plg.task.updateTask();
       } else {
         if (val.value != "" && val.title != "") {
           val.isEdit = !val.isEdit;
-          this.$db.task.updateTask();
+          this.$plg.task.updateTask();
         }
       }
     },
@@ -296,7 +296,7 @@ export default {
      */
     deleteContents(idx) {
       this.task.contents.splice(idx, 1);
-      this.$db.task.updateTask();
+      this.$plg.task.updateTask();
     },
     /**
      * ステータス変更
@@ -305,10 +305,10 @@ export default {
     changeState(state) {
       //削除の場合は
       if (state == "delete") {
-        this.$db.task.delete(this.id);
+        this.$plg.task.delete(this.id);
         return;
       }
-      this.$db.task.changeState(this.id, state);
+      this.$plg.task.changeState(this.id, state);
     },
   },
 };
