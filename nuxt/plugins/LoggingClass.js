@@ -11,7 +11,6 @@ export class LoggingClass {
         this._logList = []
         const asyncInit = async () => {
             let logList = await this.dexieLog.getAll()
-            console.log(logList)
             if (logList != null) {
                 this._logList = logList
             }
@@ -23,7 +22,60 @@ export class LoggingClass {
         const time = UtilClass.nowTime()
         this.dexieLog.add({ uid: uid, state: state, time: time })
     }
-    getAll() {
+    /**
+     * 今日のログを取得
+     */
+    async getToday() {
+        const func = () => {
+            return new Promise((resolve) => {
+                const today = UtilClass.todayZero()
+                this.dexieLog.store.where("time").aboveOrEqual(today).toArray().then(
+                    (result) => {
+                        resolve(result)
+                    })
+            })
+        }
+        let data = await func()
+        //タスクごとに時間と進捗を取得
+        let taskList = {}
+        for (let one of data) {
+            if (taskList[one.uid] == undefined) {
+                taskList[one.uid] = []
+            }
+            taskList[one.uid].push(one)
+        }
+        let result = {}
+        //作業時間と最終進捗を入れる
+        for (const uid in taskList) {
+            let sumWorkTime = 0
+            let endState = taskList[uid].state
+            let state = 'todo'
+            let endTime = 0
+            let compTime = 0
+            for (const val of taskList[uid]) {
+                endState = val.state
+                //作業中の場合
+                if (endState == 'work') {
+                    endTime = val.time
+                } else {
+                    //作業中から作業以外になった場合
+                    if (state == 'work') {
+                        sumWorkTime += val.time - endTime
+                    }
+                    compTime = val.time
+                }
+                state = val.state
+            }
+            result[uid] = { compTime: compTime, sumWorkTime: sumWorkTime, endState: endState }
+        }
+
+        return result
+    }
+    /**
+     * ログを削除
+     */
+    clearLog() {
+        this.dexieLog.claer()
     }
 }
 

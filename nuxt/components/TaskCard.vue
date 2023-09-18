@@ -7,6 +7,7 @@
         class="pa-0 ma-0 rounded-0"
         :class="{ 'active-top': isStateDial || isAddTaskDial }"
         v-if="task != null"
+        :id="task.id"
       >
         <v-container class="pt-0">
           <v-row>

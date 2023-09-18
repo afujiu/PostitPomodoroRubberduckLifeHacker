@@ -37,7 +37,7 @@ export class DexieClass {
             console.log(friend);
         })
      */
-    get getWhere() {
+    get store() {
         return this.db[this.tableName]
     }
     /**

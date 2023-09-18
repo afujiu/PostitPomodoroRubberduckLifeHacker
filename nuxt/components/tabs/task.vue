@@ -1,8 +1,8 @@
 <template>
   <div id="wrap">
-    <v-container class="px-2 mx-0">
+    <v-container class="px-2 mx-0" v-if="isForceOption">
       <v-row>
-        <v-col cols="2" class="pb-5 mb-5" align="left">
+        <v-col cols="1" class="pb-5 mb-5" align="left">
           <v-btn
             class="primary"
             dark
@@ -16,9 +16,30 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="8" class="pb-5 mt-2 mb-5"> </v-col>
+        <v-col cols="10" class="pb-5 mt-2 mb-5 white" align="center" style="position:relative;">
+            <v-card
+              v-if="$plg.task.isWorking"
+              style="width:75%;height:40px;position:fixed;z-index:999;background:white;"
+              class="pa-2">
+              <div class="grey lighten-4" style="width:100%;height:50%; position:relative;">
+                <div class="red" 
+                  :style="`width:${(Number($plg.util.offTime($plg.util.msToSecond(workTime,false),1500))/1500)*100}%;
+                  display:block;
+                  height:100%;
+                  position:absolute;
+                  z-index:10;
+                  white-space: nowrap;`"> 
+                </div>
+              </div>
+
+              <div class="str-dot" v-if="$plg.task.workTask!=null">
+                {{$plg.util.msToMinute(workTime)}}:{{$plg.util.msToSecond(workTime)}}
+                <a :href="`#${$plg.task.workTask.id}`">{{ $plg.task.workTask.title }}</a>
+                </div>
+          </v-card>
+        </v-col>
         <!-- 右オプション-->
-        <v-col cols="2" class="pb-5 mt-2 mb-5" :class="{ 'active-top': isOption }">
+        <v-col cols="1" class="pb-5 mt-2 mb-5" :class="{ 'active-top': isOption }">
           <v-speed-dial
             v-model="isOption"
             fixed
@@ -47,7 +68,7 @@
           </v-speed-dial>
         </v-col>
       </v-row>
-      <v-row class="pt-0 mt-0" v-if="isForceOption">
+      <v-row class="pt-0 mt-0">
         <v-col
           class="my-0 mt-4"
           xm="12"
@@ -104,8 +125,14 @@ export default {
     isForceOption: true,
     isFilterCard: false,
     stateFilter: [],
+    workTime:0
+
   }),
-  created() {},
+  created() {
+    this.$plg.task.isWorkingTimeFunc=(ms)=>{
+      this.workTime=ms
+    }
+  },
   mounted() {
     this.$plg.task.initLoadFunction(() => {
       this.$forceUpdate();
@@ -116,6 +143,7 @@ export default {
         this.isForceOption = true;
       }, 1);
     });
+
     this.stateFilter=this.$plg.task.filter.state
   },
   watch: {
@@ -143,5 +171,11 @@ export default {
   height:200px;
   z-index: 999;
 }
+.str-dot {
+    width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 </style>
 

@@ -11,16 +11,19 @@ export class TaskClass {
         this.logging = new LoggingClass()
         this.dexieTaskList = new DexieClass('dexieTask', 'json')
         this.dexieFilter = new DexieClass('dexieFilter', 'json')
+        this.workingStart = 0
+        this.isWorkingTimeId = 1
+        this.isWorkingTime = false
+        this.isWorkingTimeFunc = () => { }
 
         this._taskList = []
         this._filter = {
-            state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "cancel", "comp"],
+            state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "today", "cancel", "comp"],
             date: "",
         }
         this.isLoading = () => { }
         this.initUpload = () => { }
         const asyncInit = async () => {
-
             let taskList = await this.dexieTaskList.getJson()
             if (taskList != null) {
                 this._taskList = taskList
@@ -29,6 +32,8 @@ export class TaskClass {
             if (dexieFilter != null) {
                 this.filter = dexieFilter
             }
+            //作業中の作業があった場合はポモドーロ起動
+            this.trrigerPomodoro(this.checkWorking())
         }
         asyncInit()
     }
@@ -54,8 +59,9 @@ export class TaskClass {
             "todo": { text: "未着", color: "red lighten-5", textColor: "black--text", next: ["work", "wait", "plan", "loop", "cancel", "delete"] },
             "plan": { text: "予定", color: "amber lighten-2", textColor: "black--text", next: ["work", "stop", "cancel", "comp"] },
             "loop": { text: "メモ", color: "green lighten-4", textColor: "black--text", next: ["cancel", "comp"] },
-            "work": { text: "作業中", color: "red darken-2", textColor: "white--text", next: ["stop", "cancel", "comp"] },
+            "work": { text: "作業中", color: "red darken-2", textColor: "white--text", next: ["stop", "today", "cancel", "comp"] },
             "wait": { text: "返信待", color: "orange darken-3", textColor: "white--text", next: ["cancel", "comp", "delete"] },
+            "today": { text: "日跨ぎ", color: "pink lighten-4", textColor: "black--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
             "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
             "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: [] },
             "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: [] },
@@ -114,6 +120,16 @@ export class TaskClass {
             return null
         }
         return idx
+    }
+    /**
+     * 
+     */
+    get workTask() {
+        const result = this._taskList.find(v => v.state == 'work')
+        if (result == undefined) {
+            return null
+        }
+        return result
     }
     /**
      * タスクリセット
@@ -200,6 +216,7 @@ export class TaskClass {
         }
         let list = this.list
         list.push(task)
+        this.logging.addLog(uid, state)
         this.list = list
     }
     /**
@@ -234,19 +251,73 @@ export class TaskClass {
      * @param {*} state 
      */
     changeState(id, state) {
+        let cehckChangeWork = false
         if (state == 'work') {
-            let task = this._taskList.find((v) => { v.state == 'work' })
             for (let idx in this._taskList) {
                 if (this._taskList[idx].state == 'work') {
                     this.list[idx].state = 'stop'
+                    this.logging.addLog(this.list[idx].id, this.list[idx].state)
                 }
             }
+
         }
         let task = this.getTask(id)
         task.state = state
         this.logging.addLog(id, state)
         this.list = this.list
+        if (state == 'work') {
+            //作業中の作業があった場合はポモドーロ起動
+            this.trrigerPomodoro(this.checkWorking())
+        }
         this.initUpload()
+    }
+
+
+    /******************************************************
+     * ポモドーロ・テクニックよう作業時間
+     */
+
+    /**
+     * 作業中フラグ
+     */
+    checkWorking() {
+        const result = this._taskList.find(v => v.state == 'work')
+        if (result == undefined) {
+            return false
+        }
+        return true
+    }
+    get isWorking() {
+        return this.checkWorking()
+    }
+    get workingMinute() {
+        const now = UtilClass.nowTime()
+        return now - this.workingStart
+    }
+
+    /**
+     * 作業時間
+     */
+    trrigerPomodoro(flg) {
+        clearInterval(this.isWorkingTimeId)
+        if (flg) {
+            this.workingStart = UtilClass.nowTime()
+            this.isWorkingTimeId = setInterval(() => {
+                const now = UtilClass.nowTime()
+                //もしも17:30の場合はステータスを日マタギに変更
+                if (Number(UtilClass.h(now)) >= 17 && Number(UtilClass.mi(now)) >= 30) {
+                    let task = this.workTask
+                    if (task != null) {
+                        this.changeState(task.id, "today")
+                    }
+                }
+                this.isWorkingTimeFunc(now - this.workingStart)
+            }, 1000)
+        } else {
+            this.workingStart = UtilClass.nowTime()
+            this.isWorkingTimeFunc(0)
+            clearInterval(this.isWorkingTimeId)
+        }
     }
 }
 
