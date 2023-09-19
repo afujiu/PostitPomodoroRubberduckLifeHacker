@@ -34,22 +34,23 @@
                 </v-col>
                 
                 <v-col cols="1" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
-                  <!--　タスク追加ボタン-->
+                      <!--子タスク作成-->
+                      <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()">
+                        <v-icon>mdi-expand-all-outline</v-icon>
+                      </v-btn>
+                      <!-- 小タスクの表示/非表示-->
+                      <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10" @click="isOpenChildlen=!isOpenChildlen">
+                        <v-icon v-if="isOpenChildlen">mdi-menu-open</v-icon>
+                        <v-icon v-else>mdi-menu</v-icon>
+                      </v-btn>
+                    <!--　タスク追加ボタン
                   <v-speed-dial v-model="isAddTaskDial" direction="bottom">
                     <template v-slot:activator>
                       <v-btn x-small icon
                         ><v-icon  dark color="blue darken-1">mdi-plus-circle</v-icon></v-btn
                       >
                     </template>
-                    <!--子タスク作成-->
-                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()"
-                      ><v-icon>mdi-expand-all-outline</v-icon></v-btn
-                    >
-                    <!--コピー作成-->
-                    <v-btn fab x-small  class="white--text blue darken-2 ml-2" elevation="10"
-                      ><v-icon>mdi-content-copy</v-icon></v-btn
-                    >
-                  </v-speed-dial>
+                  -->
                   </v-col>
                   <v-col cols="1" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
                   <!--コンテンツ-->
@@ -226,19 +227,21 @@
             </v-col>
           </v-row>
         </v-container>
-      </v-card>
-
-      <div
-        class="my-3 py-2 pl-3 pr-0"
-        v-for="(val, idx) in $plg.task.getFilterList(id)"
-        :key="idx"
-      >
-        <task-card :id="val.id"
-          :elevation=Math.round(elevation/2)
-        ></task-card>
-      </div>
-    </span>
-  </div>
+      </v-card >
+        <!-- 小タスク-->
+        <span v-show="isOpenChildlen">
+          <div
+            class="my-3 py-2 pl-3 pr-0"
+            v-for="(val, idx) in $plg.task.getFilterList(id)"
+            :key="idx"
+          >
+            <task-card :id="val.id"
+              :elevation=Math.round(elevation/2)
+            ></task-card>
+          </div>
+        </span>
+      </span>
+    </div>
 </template>
 <script>
 import TaskCard from "~/components/TaskCard";
@@ -257,6 +260,7 @@ export default {
     isAddTaskDial: false,
     isOpenOption: false,
     isContentsDial:false,
+    isOpenChildlen:true,
   }),
   async created() {},
   async mounted() {
