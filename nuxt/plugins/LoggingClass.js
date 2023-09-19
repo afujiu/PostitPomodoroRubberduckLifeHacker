@@ -49,7 +49,7 @@ export class LoggingClass {
         for (const uid in taskList) {
             let sumWorkTime = 0
             let endState = taskList[uid].state
-            let state = 'todo'
+            let beforeState = 'todo'
             let endTime = 0
             let compTime = 0
             for (const val of taskList[uid]) {
@@ -59,14 +59,16 @@ export class LoggingClass {
                     endTime = val.time
                 } else {
                     //作業中から作業以外になった場合
-                    if (state == 'work') {
+                    if (beforeState == 'work') {
                         sumWorkTime += val.time - endTime
                     }
                     compTime = val.time
                 }
-                state = val.state
+                beforeState = val.state
             }
-            result[uid] = { compTime: compTime, sumWorkTime: sumWorkTime, endState: endState }
+            if (sumWorkTime > 0) {
+                result[uid] = { compTime: compTime, sumWorkTime: sumWorkTime, endState: endState }
+            }
         }
 
         return result
