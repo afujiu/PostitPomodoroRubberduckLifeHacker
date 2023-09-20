@@ -16,25 +16,27 @@
                 <!--タスク名-->
                 <v-col cols="12" class="px-1 pt-0 pb-0">
                   <v-text-field
-                    append-icon="mdi-check-circle-outline"
-                    @click:append="isTitleEdit=!isTitleEdit"
                     v-if="isTitleEdit"
+                    ref="focusInput"
+                    append-icon="mdi-check-circle-outline"
+                    @click:append="confirmTitle()"
                     v-model="task.title"
                     class="my-0 py-0"
                     dence
                     hide-details
-                    @change="()=>{$plg.task.list = $plg.task.list;isTitleEdit=!isTitleEdit}"
+                    @change="confirmTitle()"
+                    @keydown.enter="confirmTitle()"
+                    @blur="confirmTitle()"
                   >
                   </v-text-field>
                   <div v-else
-                    class="pl-1 pt-2 body-2"
-                    style="cursor:pointer; width:100%;min-height:32px;"
-                    @click="isTitleEdit=!isTitleEdit"
+                    class="pl-1 pt-2 card-title"
+                    @click="editTitle()"
                   >{{task.title}}</div>
                 </v-col>
                 <v-col cols="6" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
                   <!--コンテンツ-->
-                  <v-speed-dial v-model="isContentsDial" direction="right">
+                  <v-speed-dial absolute v-model="isContentsDial" direction="bottom">
                     <template v-slot:activator>
                       <v-btn icon x-small>
                         <v-icon>mdi-playlist-plus</v-icon>
@@ -208,7 +210,8 @@
                     {{ $plg.task.stateList[task.state].text }}
                   </v-btn>
                 </template>
-                <span></span>
+                <span>
+                </span>
                 <span
                   v-for="(val, idx) in $plg.task.stateList[task.state].next"
                   :key="idx"
@@ -319,6 +322,23 @@ export default {
       }
       this.$plg.task.changeState(this.id, state);
     },
+    /**
+     * タイトル修正時
+     */
+    editTitle(){
+      this.isTitleEdit=!this.isTitleEdit
+      setTimeout(() => {
+        this.$refs.focusInput.focus()
+       }, 1)
+    },
+    /**
+     * タイトル修正完了
+     */
+    confirmTitle(){
+      this.$plg.task.list = this.$plg.task.list;
+      this.isTitleEdit=!this.isTitleEdit
+    }
+    
   },
 };
 </script>
@@ -330,5 +350,11 @@ export default {
 
 .active-card {
   z-index: 999;
+}
+.card-title{
+  cursor:pointer;
+  width:100%;
+  min-height:32px;
+  font-size:0.7em;
 }
 </style>

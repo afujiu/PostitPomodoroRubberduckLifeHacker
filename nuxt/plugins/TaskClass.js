@@ -122,7 +122,7 @@ export class TaskClass {
         return idx
     }
     /**
-     * 
+     * 作業中のタスク
      */
     get workTask() {
         const result = this._taskList.find(v => v.state == 'work')
@@ -251,7 +251,6 @@ export class TaskClass {
      * @param {*} state 
      */
     changeState(id, state) {
-        let cehckChangeWork = false
         if (state == 'work') {
             for (let idx in this._taskList) {
                 if (this._taskList[idx].state == 'work') {
@@ -274,7 +273,7 @@ export class TaskClass {
 
 
     /******************************************************
-     * ポモドーロ・テクニックよう作業時間
+     * ポモドーロ・テクニック用作業時間
      */
 
     /**
