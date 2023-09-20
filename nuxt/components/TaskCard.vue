@@ -27,7 +27,7 @@
                   >
                   </v-text-field>
                   <div v-else
-                    class="pl-1 pt-2"
+                    class="pl-1 pt-2 body-2"
                     style="cursor:pointer; width:100%;min-height:32px;"
                     @click="isTitleEdit=!isTitleEdit"
                   >{{task.title}}</div>
