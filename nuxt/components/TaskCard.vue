@@ -1,6 +1,6 @@
 <template>
   <div id="wrap">
-    <span>
+    <span v-if="isLoad">
       <v-card
         variant="outlined"
         :elevation="elevation"
@@ -59,7 +59,7 @@
                       @click="pushAddChild()">
                       <v-icon>mdi-expand-all-outline</v-icon>
                     </v-btn>
-                  <!-- 小タスクの表示/非表示-->
+                  <!-- 子タスクの表示/非表示-->
                       <v-btn x-small icon elevation="0" @click="isOpenChildlen=!isOpenChildlen">
                         <v-icon v-if="isOpenChildlen">mdi-card-multiple</v-icon>
                         <v-icon v-else>mdi-card-multiple-outline</v-icon>
@@ -228,7 +228,7 @@
           </v-row>
         </v-container>
       </v-card >
-        <!-- 小タスク-->
+        <!-- 子タスク-->
         <span v-show="isOpenChildlen">
           <div
             class="my-3 py-2 pl-3 pr-0"
@@ -261,6 +261,7 @@ export default {
     isOpenOption: false,
     isContentsDial:false,
     isOpenChildlen:true,
+    isLoad:true,
   }),
   async created() {},
   async mounted() {
@@ -271,7 +272,10 @@ export default {
      * 子タスクを追加
      */
     pushAddChild() {
-      this.$plg.task.add("todo", this.id);
+      this.isLoad=false
+      this.$plg.task.add("todo", this.id)
+      this.isLoad=true
+      
     },
     /**
      * コンテンツ追加
