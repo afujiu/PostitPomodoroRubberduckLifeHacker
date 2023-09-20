@@ -57,13 +57,13 @@ export class TaskClass {
     get stateList() {
         return {
             "todo": { text: "未着", color: "red lighten-5", textColor: "black--text", next: ["work", "wait", "plan", "loop", "cancel", "delete"] },
-            "plan": { text: "予定", color: "amber lighten-2", textColor: "black--text", next: ["work", "stop", "cancel", "comp"] },
-            "loop": { text: "メモ", color: "green lighten-4", textColor: "black--text", next: ["stop", "cancel", "comp"] },
-            "work": { text: "作業中", color: "red darken-2", textColor: "white--text", next: ["stop", "today", "cancel", "comp"] },
+            "plan": { text: "予定", color: "amber lighten-2", textColor: "black--text", next: ["work", "stop", "cancel", "comp", "delete"] },
+            "loop": { text: "メモ", color: "green lighten-4", textColor: "black--text", next: ["work", "stop", "cancel", "comp", "delete"] },
+            "work": { text: "作業中", color: "red darken-2", textColor: "white--text", next: ["stop", "today", "cancel", "comp", "delete"] },
             "wait": { text: "返信待", color: "orange darken-3", textColor: "white--text", next: ["work", "stop", "cancel", "comp", "delete"] },
             "today": { text: "日跨ぎ", color: "pink lighten-4", textColor: "black--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
             "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
-            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: [] },
+            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: ["delete"] },
             "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: [] },
             "delete": { text: "削除", color: "black", textColor: "white--text", next: [] },
         }
