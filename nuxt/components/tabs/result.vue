@@ -23,6 +23,7 @@
       <v-row class="mt-5">
         <v-col cols="12">
           <p class="h6">今日の作業</p>
+          <v-btn icon @click="reload()"><v-icon>mdi-reload</v-icon></v-btn>
         </v-col>
         <v-col cols="12">
           総作業時間
@@ -66,18 +67,22 @@ export default {
     isWrokTime: true,
   }),
   async created() {
-    this.list = await this.$plg.log.getToday();
-    this.sumTime = 0;
-    for (let val of this.list) {
-      this.sumTime += val.sumWorkTime;
-    }
+    await this.reload();
   },
   async mounted() {
     this.$plg.task.initLoadFunction(() => {
       this.$forceUpdate();
     });
   },
-  methods: {},
+  methods: {
+    async reload() {
+      this.list = await this.$plg.log.getToday();
+      this.sumTime = 0;
+      for (let val of this.list) {
+        this.sumTime += val.sumWorkTime;
+      }
+    },
+  },
 };
 </script>
 <style scoped></style>
