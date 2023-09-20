@@ -32,27 +32,7 @@
                     @click="isTitleEdit=!isTitleEdit"
                   >{{task.title}}</div>
                 </v-col>
-                
-                <v-col cols="6" class="ma-0 pa-0 pl-0">
-                      <!--子タスク作成-->
-                      <v-btn x-small icon elevation="0" @click="pushAddChild()">
-                        <v-icon>mdi-expand-all-outline</v-icon>
-                      </v-btn>
-                      <!-- 小タスクの表示/非表示-->
-                      <v-btn x-small icon elevation="0" @click="isOpenChildlen=!isOpenChildlen">
-                        <v-icon v-if="isOpenChildlen">mdi-menu-open</v-icon>
-                        <v-icon v-else>mdi-menu</v-icon>
-                      </v-btn>
-                    <!--　タスク追加ボタン
-                  <v-speed-dial v-model="isAddTaskDial" direction="bottom">
-                    <template v-slot:activator>
-                      <v-btn x-small icon
-                        ><v-icon  dark color="blue darken-1">mdi-plus-circle</v-icon></v-btn
-                      >
-                    </template>
-                  -->
-                  </v-col>
-                  <v-col cols="6" align="right" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
+                <v-col cols="6" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
                   <!--コンテンツ-->
                   <v-speed-dial v-model="isContentsDial" direction="right">
                     <template v-slot:activator>
@@ -70,9 +50,29 @@
                       @click="pushAddLink('datetime')"
                       ><v-icon>mdi-clipboard-text-clock</v-icon></v-btn
                     >
-
                   </v-speed-dial>
                 </v-col>
+                <v-col cols="6" align="right" class="ma-0 pa-0 pl-0">
+                  <!--子タスク作成-->
+                    <v-btn x-small icon elevation="0"
+                      color="primary"
+                      @click="pushAddChild()">
+                      <v-icon>mdi-expand-all-outline</v-icon>
+                    </v-btn>
+                  <!-- 小タスクの表示/非表示-->
+                      <v-btn x-small icon elevation="0" @click="isOpenChildlen=!isOpenChildlen">
+                        <v-icon v-if="isOpenChildlen">mdi-card-multiple</v-icon>
+                        <v-icon v-else>mdi-card-multiple-outline</v-icon>
+                      </v-btn>
+                    <!--　タスク追加ボタン
+                  <v-speed-dial v-model="isAddTaskDial" direction="bottom">
+                    <template v-slot:activator>
+                      <v-btn x-small icon
+                        ><v-icon  dark color="blue darken-1">mdi-plus-circle</v-icon></v-btn
+                      >
+                    </template>
+                  -->
+                  </v-col>
                 <v-col cols="10" class="ma-0 pa-0 pl-0">
                 </v-col>
                 <v-col cols="12" v-for="(val, idx) in task.contents" :key="idx" class="ma-0 pa-0 px-0">
