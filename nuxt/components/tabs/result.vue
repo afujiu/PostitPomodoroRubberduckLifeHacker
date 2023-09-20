@@ -27,7 +27,11 @@
         </v-col>
         <v-col cols="12">
           総作業時間
-          <p>{{ $plg.util.msToHour(sumTime, false) }}:{{ sumTime }}</p>
+          <span
+            >{{ $plg.util.msToHour(sumTime, false) }}:{{
+              $plg.util.msToHour(sumTime, false)
+            }}</span
+          >
         </v-col>
         <v-col class="my-0 mt-0" xm="12" sm="12" md="12" lg="12" cols="12">
           <div v-for="(val, uid) in list" :key="uid">
