@@ -33,13 +33,13 @@
                   >{{task.title}}</div>
                 </v-col>
                 
-                <v-col cols="6" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
+                <v-col cols="6" class="ma-0 pa-0 pl-0">
                       <!--子タスク作成-->
-                      <v-btn x-small icon class="white--text blue darken-2 ml-2" elevation="10" @click="pushAddChild()">
+                      <v-btn x-small icon elevation="0" @click="pushAddChild()">
                         <v-icon>mdi-expand-all-outline</v-icon>
                       </v-btn>
                       <!-- 小タスクの表示/非表示-->
-                      <v-btn x-small icon class="white--text blue darken-2 ml-2" elevation="10" @click="isOpenChildlen=!isOpenChildlen">
+                      <v-btn x-small icon elevation="0" @click="isOpenChildlen=!isOpenChildlen">
                         <v-icon v-if="isOpenChildlen">mdi-menu-open</v-icon>
                         <v-icon v-else>mdi-menu</v-icon>
                       </v-btn>
