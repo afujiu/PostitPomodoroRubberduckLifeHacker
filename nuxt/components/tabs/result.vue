@@ -21,15 +21,15 @@
         </v-col>
       </v-row>
       <v-row class="mt-5">
-        <v-col cols="12">
-          <p class="h6">今日の作業</p>
+        <v-col cols="4"> 今日の作業 </v-col>
+        <v-col cols="2">
           <v-btn icon @click="reload()"><v-icon>mdi-reload</v-icon></v-btn>
         </v-col>
-        <v-col cols="12">
+        <v-col cols="6">
           総作業時間
           <span
             >{{ $plg.util.msToHour(sumTime, false) }}:{{
-              $plg.util.msToMinute(sumTime, false)
+              $plg.util.msToMinute(sumTime)
             }}</span
           >
         </v-col>
