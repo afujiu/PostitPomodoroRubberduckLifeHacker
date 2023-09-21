@@ -82,8 +82,9 @@ export default {
     async reload() {
       this.list = await this.$plg.log.getToday();
       this.sumTime = 0;
-      for (let val of this.list) {
-        this.sumTime += val.sumWorkTime;
+      for (let key in this.list) {
+        let val = this.list[key];
+        this.sumTime += Number(val.sumWorkTime);
       }
     },
   },
