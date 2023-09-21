@@ -25,7 +25,6 @@
                     dence
                     hide-details
                     @change="confirmTitle()"
-                    @keydown.enter="confirmTitle()"
                     @blur="confirmTitle()"
                   >
                   </v-text-field>
@@ -34,7 +33,7 @@
                     @click="editTitle()"
                   >{{task.title}}</div>
                 </v-col>
-                <v-col cols="6" class="ma-0 pa-0 pl-0" :class="{ 'active-top': isContentsDial || isContentsDial }">
+                <v-col cols="6" class="ma-0 pa-0 py-1 pl-2" :class="{ 'active-top': isContentsDial || isContentsDial }">
                   <!--コンテンツ-->
                   <v-speed-dial absolute v-model="isContentsDial" direction="bottom">
                     <template v-slot:activator>
@@ -54,7 +53,7 @@
                     >
                   </v-speed-dial>
                 </v-col>
-                <v-col cols="6" align="right" class="ma-0 pa-0 pl-0">
+                <v-col cols="6" align="right" class="ma-0 pa-0 py-1 pr-2">
                   <!--子タスク作成-->
                     <v-btn x-small icon elevation="0"
                       color="primary"

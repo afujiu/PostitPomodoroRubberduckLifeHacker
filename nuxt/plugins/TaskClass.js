@@ -63,8 +63,8 @@ export class TaskClass {
             "wait": { text: "返信待", color: "orange darken-3", textColor: "white--text", next: ["work", "stop", "cancel", "comp", "delete"] },
             "break": { text: "中断", color: "pink lighten-4", textColor: "black--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
             "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
-            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: ["delete"] },
-            "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: [] },
+            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: ["todo","delete"] },
+            "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: ["todo"] },
             "delete": { text: "削除", color: "black", textColor: "white--text", next: [] },
         }
     }
@@ -180,6 +180,11 @@ export class TaskClass {
         }
         return list
     }
+    /**
+     * フィルタリングしたタスク一覧
+     * @param {*} parentId 
+     * @returns 
+     */
     getFilterList(parentId = null) {
         let list = this._taskList.filter((v) => {
             if (v.parentId != parentId) {
