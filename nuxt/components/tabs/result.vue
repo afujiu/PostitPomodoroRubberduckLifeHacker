@@ -29,7 +29,7 @@
           総作業時間
           <span
             >{{ $plg.util.msToHour(sumTime, false) }}:{{
-              $plg.util.msToHour(sumTime, false)
+              $plg.util.msToMinute(sumTime, false)
             }}</span
           >
         </v-col>
