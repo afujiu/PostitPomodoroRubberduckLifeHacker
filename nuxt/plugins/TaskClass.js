@@ -35,8 +35,8 @@ export class TaskClass {
             this.trrigerPomodoro(this.checkWorking())
         }
         asyncInit()
-        const myWasmModule = import("~/assets/js/pkg/rust_api");
-        myWasmModule.then((myWasmModule) => { console.log(myWasmModule.get("https://www.google.com/?hl=ja")) });
+        //const myWasmModule = import("~/assets/js/pkg/rust_api");
+        //myWasmModule.then((myWasmModule) => { console.log(myWasmModule.get("https://www.google.com/?hl=ja")) });
     }
 
     initLoadFunction(func) {
@@ -64,7 +64,7 @@ export class TaskClass {
             "wait": { text: "返信待", color: "orange darken-3", textColor: "white--text", next: ["work", "stop", "cancel", "comp", "delete"] },
             "break": { text: "中断", color: "pink lighten-4", textColor: "black--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
             "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
-            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: ["todo","delete"] },
+            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: ["todo", "delete"] },
             "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: ["todo"] },
             "delete": { text: "削除", color: "black", textColor: "white--text", next: [] },
         }
