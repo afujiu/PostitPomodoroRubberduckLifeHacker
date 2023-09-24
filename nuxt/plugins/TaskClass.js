@@ -15,7 +15,6 @@ export class TaskClass {
         this.isWorkingTimeId = 1
         this.isWorkingTime = false
         this.isWorkingTimeFunc = () => { }
-
         this._taskList = []
         this._filter = {
             state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "today", "cancel", "comp"],
@@ -36,6 +35,8 @@ export class TaskClass {
             this.trrigerPomodoro(this.checkWorking())
         }
         asyncInit()
+        const myWasmModule = import("~/assets/js/pkg/rust_api");
+        myWasmModule.then((myWasmModule) => { console.log(myWasmModule.get("https://www.google.com/?hl=ja")) });
     }
 
     initLoadFunction(func) {

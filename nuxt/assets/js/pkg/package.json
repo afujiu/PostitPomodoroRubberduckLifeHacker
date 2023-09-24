@@ -1,0 +1,16 @@
+{
+  "name": "rust-api",
+  "version": "0.1.0",
+  "files": [
+    "rust_api_bg.wasm",
+    "rust_api.js",
+    "rust_api_bg.js",
+    "rust_api.d.ts"
+  ],
+  "module": "rust_api.js",
+  "types": "rust_api.d.ts",
+  "sideEffects": [
+    "./rust_api.js",
+    "./snippets/*"
+  ]
+}
