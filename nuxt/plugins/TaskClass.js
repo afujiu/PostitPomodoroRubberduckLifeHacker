@@ -17,7 +17,7 @@ export class TaskClass {
         this.isWorkingTimeFunc = () => { }
         this._taskList = []
         this._filter = {
-            state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "today", "cancel", "comp"],
+            state: ["todo", "plan", "loop", "work", "wait", "stop", "cancel", "break", "cancel", "comp"],
             date: "",
         }
         this.isLoading = () => { }
@@ -60,12 +60,12 @@ export class TaskClass {
             "todo": { text: "未着", color: "red lighten-5", textColor: "black--text", next: ["work", "wait", "plan", "loop", "cancel", "delete"] },
             "plan": { text: "予定", color: "amber lighten-2", textColor: "black--text", next: ["work", "stop", "cancel", "comp", "delete"] },
             "loop": { text: "メモ", color: "green lighten-4", textColor: "black--text", next: ["work", "stop", "cancel", "comp", "delete"] },
-            "work": { text: "作業中", color: "red darken-2", textColor: "white--text", next: ["stop", "today", "cancel", "comp", "delete"] },
+            "work": { text: "作業中", color: "red darken-2", textColor: "white--text", next: ["stop", "break", "cancel", "comp", "delete"] },
             "wait": { text: "返信待", color: "orange darken-3", textColor: "white--text", next: ["work", "stop", "cancel", "comp", "delete"] },
-            "today": { text: "日跨ぎ", color: "pink lighten-4", textColor: "black--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
+            "break": { text: "中断", color: "pink lighten-4", textColor: "black--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
             "stop": { text: "停止", color: "blue-grey", textColor: "white--text", next: ["work", "plan", "wait", "cancel", "comp", "delete"] },
-            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: ["delete"] },
-            "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: [] },
+            "cancel": { text: "中止", color: "brown lighten-5", textColor: "black--text", next: ["todo","delete"] },
+            "comp": { text: "完了", color: "blue lighten-5", textColor: "black--text", next: ["todo"] },
             "delete": { text: "削除", color: "black", textColor: "white--text", next: [] },
         }
     }
@@ -181,6 +181,11 @@ export class TaskClass {
         }
         return list
     }
+    /**
+     * フィルタリングしたタスク一覧
+     * @param {*} parentId 
+     * @returns 
+     */
     getFilterList(parentId = null) {
         let list = this._taskList.filter((v) => {
             if (v.parentId != parentId) {
@@ -304,11 +309,11 @@ export class TaskClass {
             this.workingStart = UtilClass.nowTime()
             this.isWorkingTimeId = setInterval(() => {
                 const now = UtilClass.nowTime()
-                //もしも17:30の場合はステータスを日マタギに変更
+                //もしも17:30の場合はステータスを中断に変更
                 if (Number(UtilClass.h(now)) >= 17 && Number(UtilClass.mi(now)) >= 30) {
                     let task = this.workTask
                     if (task != null) {
-                        this.changeState(task.id, "today")
+                        this.changeState(task.id, "break")
                     }
                 }
                 this.isWorkingTimeFunc(now - this.workingStart)

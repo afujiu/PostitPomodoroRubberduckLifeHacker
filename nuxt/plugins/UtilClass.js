@@ -147,6 +147,23 @@ export class UtilClass {
      * @param {*} offHour trueの場合1時間後は0から
      * @returns 
      */
+    static msToHour(ms, offDay = true) {
+        let hour = Math.floor(ms / (1000 * 60 * 60))
+        if (offDay) {
+            return Number(hour - ((Math.floor(hour / 24)) * 24))
+        }
+        return Number(hour)
+    }
+    msToHour(ms, offDay = true) {
+        return UtilClass.msToHour(ms, offDay)
+    }
+
+    /**
+     * ミリ秒を分に変更
+     * @param {*} ms 
+     * @param {*} offHour trueの場合1時間後は0から
+     * @returns 
+     */
     static msToMinute(ms, offHour = true) {
         let minute = Math.floor(ms / (1000 * 60))
         if (offHour) {

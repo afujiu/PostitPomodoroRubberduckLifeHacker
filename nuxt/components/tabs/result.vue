@@ -21,10 +21,19 @@
         </v-col>
       </v-row>
       <v-row class="mt-5">
-        <v-col cols="12">
-          <p class="h6">今日の作業</p>
+        <v-col cols="4"> 今日の作業 </v-col>
+        <v-col cols="2">
+          <v-btn icon @click="reload()"><v-icon>mdi-reload</v-icon></v-btn>
         </v-col>
-        <v-col class="my-0 mt-4" xm="12" sm="12" md="12" lg="12" cols="12">
+        <v-col cols="6">
+          総作業時間
+          <span
+            >{{ $plg.util.msToHour(sumTime, false) }}:{{
+              $plg.util.msToMinute(sumTime)
+            }}</span
+          >
+        </v-col>
+        <v-col class="my-0 mt-0" xm="12" sm="12" md="12" lg="12" cols="12">
           <div v-for="(val, uid) in list" :key="uid">
             <span v-if="$plg.task.getTask(uid) != null">
               <span>
@@ -43,8 +52,8 @@
                 >
               </span>
               <span v-if="isWrokTime">
-                {{ $plg.util.msToMinute(val.sumWorkTime, false) }}:{{
-                  $plg.util.msToSecond(val.sumWorkTime)
+                {{ $plg.util.msToHour(val.sumWorkTime, false) }}:{{
+                  $plg.util.msToMinute(val.sumWorkTime)
                 }}
               </span>
             </span>
@@ -58,17 +67,27 @@
 export default {
   data: () => ({
     list: [],
+    sumTime: 0,
     isWrokTime: true,
   }),
   async created() {
-    this.list = await this.$plg.log.getToday();
+    await this.reload();
   },
   async mounted() {
     this.$plg.task.initLoadFunction(() => {
       this.$forceUpdate();
     });
   },
-  methods: {},
+  methods: {
+    async reload() {
+      this.list = await this.$plg.log.getToday();
+      this.sumTime = 0;
+      for (let key in this.list) {
+        let val = this.list[key];
+        this.sumTime += Number(val.sumWorkTime);
+      }
+    },
+  },
 };
 </script>
 <style scoped></style>
