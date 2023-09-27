@@ -25,11 +25,12 @@ export class LoggingClass {
     /**
      * 今日のログを取得
      */
-    async getToday() {
+    async getToday(minusDay = 0) {
         const func = () => {
             return new Promise((resolve) => {
-                const today = UtilClass.todayZero()
-                this.dexieLog.store.where("time").aboveOrEqual(today).toArray().then(
+                const today = UtilClass.todayZero(minusDay)
+                const nextday = UtilClass.todayZero(minusDay + 1)
+                this.dexieLog.store.where("time").between(today, nextday).toArray().then(
                     (result) => {
                         resolve(result)
                     })

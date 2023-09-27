@@ -10,9 +10,13 @@ export class UtilClass {
         const unixTime = new Date()
         return unixTime.getTime()
     }
-    static todayZero() {
+    /**
+     * 今日の0時から
+     * @returns 
+     */
+    static todayZero(minusDay = 0) {
         let date = new Date()
-        let toDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0)
+        let toDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() - minusDay, 0, 0, 0)
         return toDay.getTime()
     }
     static yyyy(unixTime) {

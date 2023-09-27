@@ -4,6 +4,7 @@
       <v-row>
         <v-col cols="11" class="pa-0 ma-0">
           <v-btn @click="isWrokTime = !isWrokTime"> 作業時間を表示 </v-btn>
+          <v-text-field v-model="minusDay"></v-text-field>
         </v-col>
         <v-col cols="1" class="pa-0 ma-0">
           <v-btn
@@ -69,6 +70,7 @@ export default {
     list: [],
     sumTime: 0,
     isWrokTime: true,
+    minusDay: 0,
   }),
   async created() {
     await this.reload();
@@ -80,7 +82,7 @@ export default {
   },
   methods: {
     async reload() {
-      this.list = await this.$plg.log.getToday();
+      this.list = await this.$plg.log.getToday(this.minusDay);
       this.sumTime = 0;
       for (let key in this.list) {
         let val = this.list[key];
