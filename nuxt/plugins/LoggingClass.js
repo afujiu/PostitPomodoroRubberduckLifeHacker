@@ -29,10 +29,8 @@ export class LoggingClass {
         const func = () => {
             return new Promise((resolve) => {
                 const today = UtilClass.todayZero(minusDay)
-                console.log(today)
                 const nextday = UtilClass.todayZero(minusDay + 1)
-                console.log(nextday)
-                this.dexieLog.store.where("time").between(today, nextday).toArray().then(
+                this.dexieLog.store.where("time").aboveOrEqual(today).belowOrEqual(nextday).toArray().then(
                     (result) => {
                         resolve(result)
                     })
