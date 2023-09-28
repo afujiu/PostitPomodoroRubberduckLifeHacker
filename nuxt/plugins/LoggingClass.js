@@ -33,7 +33,7 @@ export class LoggingClass {
                 console.log(minusDay)
                 console.log(today)
                 console.log(nextday)
-                this.dexieLog.store.where("time").aboveOrEqual(today).belowOrEqual(nextday).toArray().then(
+                this.dexieLog.store.where("time").between(today, nextday).toArray().then(
                     (result) => {
                         resolve(result)
                     })
