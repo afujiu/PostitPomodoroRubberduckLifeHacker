@@ -14,9 +14,9 @@ export class UtilClass {
      * 今日の0時から
      * @returns 
      */
-    static todayZero(minusDay = 0) {
+    static todayZero(addDay = 0) {
         let date = new Date()
-        let toDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() - minusDay, 0, 0, 0)
+        let toDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + addDay, 0, 0, 0)
         return toDay.getTime()
     }
     static yyyy(unixTime) {
