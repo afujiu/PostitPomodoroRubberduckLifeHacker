@@ -17,7 +17,7 @@ export class UtilClass {
     static todayZero(addDay = 0) {
         let date = new Date()
         let toDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0)
-        toDay.setDate(date.getDate() + Number(addDay))
+        toDay.setDate(date.getDate() - 1)
         return toDay.getTime()
     }
     static yyyy(unixTime) {
