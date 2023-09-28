@@ -28,8 +28,8 @@ export class LoggingClass {
     async getToday(minusDay = 0) {
         const func = () => {
             return new Promise((resolve) => {
-                const today = UtilClass.todayZero(minusDay)
-                const nextday = UtilClass.todayZero(minusDay + 1)
+                const today = UtilClass.todayZero(Number(minusDay))
+                const nextday = UtilClass.todayZero(Number(minusDay) + 1)
                 console.log(minusDay)
                 console.log(today)
                 console.log(nextday)
